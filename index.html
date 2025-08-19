@@ -172,11 +172,18 @@
   </script>
 
   <!-- ✅ Visitor IP & Device Logger -->
-  <script>
-    // Replace with your deployed backend URL
-    fetch("https://knoxx-logger.onrender.com/log-visit")
-      .catch(err => console.log("Logging Error:", err));
-  </script>
+ <script>
+  fetch("https://site-ljsg.onrender.com/log-visit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      page: window.location.href,
+      userAgent: navigator.userAgent,
+      referrer: document.referrer
+    })
+  });
+</script>
 
 </body>
+
 </html>
