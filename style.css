@@ -1,0 +1,9 @@
+.family-img {
+  width: 220px;       /* Aadhaar-card width */
+  height: 140px;      /* Aadhaar-card height */
+  object-fit: cover;  /* crop extra space, no stretching */
+  border-radius: 12px;
+  display: block;
+  margin: 1rem auto;  /* centers the image */
+  box-shadow: 0 0 15px rgba(0,255,224,0.6);
+}
