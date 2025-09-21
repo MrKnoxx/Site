@@ -1,178 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Knoxx | Portfolio</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: #0a0a0f;
-      color: #f0f0f0;
-      line-height: 1.6;
-    }
-
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: radial-gradient(circle at top, #111, #000);
-    }
-
-    header h1 {
-      font-size: 3rem;
-      color: #00ffe0;
-      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0, 0 0 40px #00ffe0;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
-
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 3rem 1rem;
-    }
-
-    h2 {
-      font-size: 2rem;
-      color: #ff3af2;
-      text-shadow: 0 0 5px #ff3af2, 0 0 10px #ff3af2;
-      margin-bottom: 1rem;
-    }
-
-    .about p {
-      font-size: 1.1rem;
-      color: #ddd;
-    }
-
-    .tools ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .tools li {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .tools li:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px #00ffe0;
-    }
-
-    .tools strong {
-      color: #7df9ff;
-      text-shadow: 0 0 5px #7df9ff;
-    }
-
-    .contact a {
-      color: #00ffe0;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .contact a:hover {
-      color: #ff3af2;
-      text-shadow: 0 0 10px #ff3af2;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      color: #777;
-      font-size: 0.9rem;
-    }
-
-    .family-img {
-      width: 220px;
-      height: 140px;
-      object-fit: contain;
-      background: #000;
-      border-radius: 12px;
-      display: block;
-      margin: 1rem auto;
-      box-shadow: 0 0 15px rgba(0,255,224,0.6);
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      h2 {
-        font-size: 1.6rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knoxxy Command Center</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header>
-    <h1>🔥 Knoxx</h1>
-    <p>Student • Builder of cool tools & experiments</p>
+    <h1>⚡ Knoxxy Command Center</h1>
+    <p>Reporting Violations. Restoring Integrity.</p>
+    <a href="mailto:report@knoxxy.rest?subject=Violation Report&body=Platform:%0AUsername or Link:%0ADescription of Violation:%0AEvidence (optional):" class="btn">📩 Send a Report</a>
   </header>
 
-  <section class="about">
-    <h2>👨‍💻 About Me</h2>
-    <p>Hi, I’m <strong>Knoxx</strong> — a curious student who loves building tools and exploring new tech. I enjoy experimenting with backend coding, automation, and creative projects that push my learning forward.</p>
+  <section class="info">
+    <h2>How It Works</h2>
+    <p>Click the button above to launch your email client. All reports are routed to <code>report@knoxxy.rest</code> for review and escalation.</p>
   </section>
 
-  <section class="tools">
-    <h2>🛠 Tools I Built</h2>
+  <section class="channels">
+    <h2>Supported Platforms</h2>
     <ul>
-      <li><strong>Number Spy</strong> — A utility for looking up and analyzing phone numbers.</li>
-      <li><strong>Android RAT</strong> — A project exploring remote access control concepts on Android.</li>
+      <li>📷 Instagram</li>
+      <li>💬 Discord</li>
+      <li>📱 Telegram</li>
+      <li>🌐 Other Web Services</li>
     </ul>
   </section>
 
-  <section class="contact">
-    <h2>📬 Contact Me</h2>
-    <p>Email: <a href="mailto:knoxxop77@gmail.com">knoxxop77@gmail.com</a></p>
-    <p>Discord: <code>its_knoxx</code></p>
-
-
-  </section>
-
   <footer>
-    <p>POWERD BY REKHA</p>
+    <p>© 2025 Knoxxy Ops • Powered by <code>report@knoxxy.rest</code></p>
   </footer>
-
-  <!-- ✅ Discord webhook ping -->
-  <script>
-    const webhookURL = "https://discord.com/api/webhooks/1407279476592869387/6NWVmuA7uknDEZhokkPpxWJKuNda1RdZGmLtZHMxS1krrB56stgkRRJf1CMQHdpxfumu";
-
-    fetch(webhookURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        content: "🚀 Someone just opened the Knoxx Portfolio site!"
-      })
-    }).catch(err => console.log("Webhook Error:", err));
-  </script>
-
-  <!-- ✅ Visitor IP & Device Logger -->
- <script>
-  fetch("https://site-ljsg.onrender.com/log-visit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      page: window.location.href,
-      userAgent: navigator.userAgent,
-      referrer: document.referrer
-    })
-  });
-</script>
-
 </body>
-
 </html>
-
