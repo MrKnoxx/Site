@@ -3,33 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Knoxxy Command Center</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Knoxxy Rewards</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; }
+    .glow { text-shadow: 0 0 5px #fff, 0 0 10px #a855f7, 0 0 15px #a855f7; }
+    .card:hover { transform: scale(1.02); transition: 0.3s ease; }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>⚡ Knoxxy Command Center</h1>
-    <p>Reporting Violations. Restoring Integrity.</p>
-    <a href="mailto:report@knoxxy.rest?subject=Violation Report&body=Platform:%0AUsername or Link:%0ADescription of Violation:%0AEvidence (optional):" class="btn">📩 Send a Report</a>
+
+  <!-- Hero Section -->
+  <header class="text-center py-10">
+    <img src="avatar.png" alt="Knoxxy Agent" class="mx-auto w-24 rounded-full border-4 border-purple-500" />
+    <h1 class="text-4xl font-bold glow mt-4">Knoxxy Rewards</h1>
+    <p class="text-lg text-gray-400">Admin-grade offers. No fluff. No fees.</p>
   </header>
 
-  <section class="info">
-    <h2>How It Works</h2>
-    <p>Click the button above to launch your email client. All reports are routed to <code>report@knoxxy.rest</code> for review and escalation.</p>
+  <!-- Offer Grid -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+    <div class="card bg-gray-900 p-4 rounded-lg border border-purple-600">
+      <h2 class="text-xl font-bold mb-2">Stake Exclusive Bonus</h2>
+      <p class="text-sm text-gray-300 mb-4">Get up to 200% matched bonus. Verified by Knoxxy Ops.</p>
+      <a href="https://your-affiliate-link.com" class="block bg-purple-600 text-white text-center py-2 rounded hover:bg-purple-800 transition">Claim Now</a>
+    </div>
+    <div class="card bg-gray-900 p-4 rounded-lg border border-green-600">
+      <h2 class="text-xl font-bold mb-2">Daily Spin Rewards</h2>
+      <p class="text-sm text-gray-300 mb-4">Spin daily for crypto prizes. No deposit required.</p>
+      <a href="https://your-spin-link.com" class="block bg-green-600 text-white text-center py-2 rounded hover:bg-green-800 transition">Try Your Luck</a>
+    </div>
+    <div class="card bg-gray-900 p-4 rounded-lg border border-red-600">
+      <h2 class="text-xl font-bold mb-2">Leaderboard Challenge</h2>
+      <p class="text-sm text-gray-300 mb-4">Top 10 Knoxxy wagers win monthly cash pool.</p>
+      <a href="#leaderboard" class="block bg-red-600 text-white text-center py-2 rounded hover:bg-red-800 transition">View Leaderboard</a>
+    </div>
   </section>
 
-  <section class="channels">
-    <h2>Supported Platforms</h2>
-    <ul>
-      <li>📷 Instagram</li>
-      <li>💬 Discord</li>
-      <li>📱 Telegram</li>
-      <li>🌐 Other Web Services</li>
-    </ul>
+  <!-- Leaderboard -->
+  <section id="leaderboard" class="mt-12 px-6">
+    <h2 class="text-2xl font-bold text-center mb-4 glow">Knoxxy Leaderboard</h2>
+    <table class="w-full text-left bg-gray-800 rounded-lg overflow-hidden">
+      <thead class="bg-gray-700 text-purple-400">
+        <tr>
+          <th class="px-4 py-2">Rank</th>
+          <th class="px-4 py-2">Agent</th>
+          <th class="px-4 py-2">Wagered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t border-gray-600">
+          <td class="px-4 py-2">1</td>
+          <td class="px-4 py-2">AgentX</td>
+          <td class="px-4 py-2">$12,500</td>
+        </tr>
+        <tr class="border-t border-gray-600">
+          <td class="px-4 py-2">2</td>
+          <td class="px-4 py-2">CryptoWolf</td>
+          <td class="px-4 py-2">$9,800</td>
+        </tr>
+        <tr class="border-t border-gray-600">
+          <td class="px-4 py-2">3</td>
+          <td class="px-4 py-2">KnoxxyBot</td>
+          <td class="px-4 py-2">$7,400</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
-  <footer>
-    <p>© 2025 Knoxxy Ops • Powered by <code>report@knoxxy.rest</code></p>
+  <!-- Footer -->
+  <footer class="text-center text-gray-500 text-sm mt-10 px-4 py-6 border-t border-gray-700">
+    <p>18+ only. Gamble responsibly. Knoxxy Ops is not a gambling provider.</p>
+    <p><a href="/report" class="underline">Report abuse or DMCA</a></p>
   </footer>
+
 </body>
 </html>
