@@ -1,80 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Knoxxy Rewards</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body { background-color: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; }
-    .glow { text-shadow: 0 0 5px #fff, 0 0 10px #a855f7, 0 0 15px #a855f7; }
-    .card:hover { transform: scale(1.02); transition: 0.3s ease; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONEX100 - Exclusive Rewards & Bonuses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #1C2526;
+            color: #FFFFFF;
+            text-align: center;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        .header {
+            padding: 40px 20px;
+            background: linear-gradient(180deg, #2A3439, #1C2526);
+        }
+        .premium-box {
+            background: linear-gradient(135deg, #2A3439, #1C2526);
+            border: 2px solid #FFD700;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            animation: zoomIn 1.5s ease-in-out;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 20px 0;
+            color: #FFFFFF;
+        }
+        .header p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #D3D3D3;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .arrow {
+            font-size: 2rem;
+            color: #FF4C4C;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #2A3439;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 76, 76, 0.5);
+        }
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #FF4C4C;
+        }
+        .card p {
+            font-size: 1rem;
+            color: #D3D3D3;
+            margin-bottom: 10px;
+            text-align: left;
+            padding-left: 15px;
+        }
+        .card a {
+            display: inline-block;
+            background: #FF4C4C;
+            color: #FFFFFF;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            align-self: center;
+            margin-top: auto;
+            transition: background 0.3s ease;
+        }
+        .card a:hover {
+            background: #E63939;
+        }
+        .popular::after {
+            content: 'POPULAR';
+            background: #FF4C4C;
+            color: #FFFFFF;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .discord {
+            padding: 20px;
+            background: #2A3439;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 10px;
+        }
+        .discord p {
+            font-size: 1.1rem;
+            color: #D3D3D3;
+        }
+        .discord a {
+            color: #7289DA;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .discord a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            padding: 20px;
+            background: #1C2526;
+            border-top: 1px solid #2A3439;
+        }
+        .footer a {
+            color: #FF4C4C;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .warning {
+            padding: 20px;
+            font-size: 1rem;
+            color: #FFFFFF;
+            background-color: #1C2526;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            background-color: #2A3439;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .close {
+            color: #FFFFFF;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #FF4C4C;
+        }
+        .timer {
+            font-size: 1.2rem;
+            color: #FF4C4C;
+            margin: 15px 0;
+        }
+        .leaderboard-warning {
+            font-size: 1rem;
+            color: #D3D3D3;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #FF4C4C;
+        }
+        th {
+            background-color: #FF4C4C;
+            color: #FFFFFF;
+        }
+        tr:hover {
+            background-color: #1C2526;
+        }
+        @media (max-width: 768px) {
+            .premium-box {
+                font-size: 1.8rem;
+                padding: 15px 20px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+                padding: 20px 10px;
+            }
+            .card {
+                min-height: 250px;
+            }
+            .card h3 {
+                font-size: 1.5rem;
+            }
+            .card a {
+                padding: 10px 20px;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            .discord p {
+                font-size: 1rem;
+            }
+            .footer a {
+                margin: 0 10px;
+            }
+            .warning {
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .premium-box {
+                font-size: 1.5rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+            .card h3 {
+                font-size: 1.3rem;
+            }
+            .card p {
+                font-size: 0.9rem;
+            }
+            .timer {
+                font-size: 1rem;
+            }
+            .leaderboard-warning {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Hero Section -->
-  <header class="text-center py-10">
-    <img src="avatar.png" alt="Knoxxy Agent" class="mx-auto w-24 rounded-full border-4 border-purple-500" />
-    <h1 class="text-4xl font-bold glow mt-4">Knoxxy Rewards</h1>
-    <p class="text-lg text-gray-400">Admin-grade offers. No fluff. No fees.</p>
-  </header>
-
-  <!-- Offer Grid -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
-    <div class="card bg-gray-900 p-4 rounded-lg border border-purple-600">
-      <h2 class="text-xl font-bold mb-2">Stake Exclusive Bonus</h2>
-      <p class="text-sm text-gray-300 mb-4">Get up to 200% matched bonus. Verified by Knoxxy Ops.</p>
-      <a href="https://your-affiliate-link.com" class="block bg-purple-600 text-white text-center py-2 rounded hover:bg-purple-800 transition">Claim Now</a>
+    <div class="header">
+        <div class="premium-box">WELCOME TO ONEX100 COMMUNITY</div>
+        <h1>THE BEST EXCLUSIVE REWARDS & BONUSES</h1>
+        <p>Exclusive Offers. Choose from our premium bonus packages designed to maximize your gaming experience.</p>
+        <div class="arrow" onclick="scrollToCards()">↓</div>
     </div>
-    <div class="card bg-gray-900 p-4 rounded-lg border border-green-600">
-      <h2 class="text-xl font-bold mb-2">Daily Spin Rewards</h2>
-      <p class="text-sm text-gray-300 mb-4">Spin daily for crypto prizes. No deposit required.</p>
-      <a href="https://your-spin-link.com" class="block bg-green-600 text-white text-center py-2 rounded hover:bg-green-800 transition">Try Your Luck</a>
+    <div class="cards">
+        <div class="card">
+            <h3 style="font-size:2rem; font-weight:900;">$35 FREE BONUS</h3>
+            <p>✓ Sign up under code ONEX100</p>
+            <p>✓ New users Only</p>
+            <p>✓ Deposit $35, wager $35</p>
+            <p>✓ Contact us on Discord</p>
+            <p>✓ Receive $35 for free</p>
+            <a href="https://stake.bet/c=ONEX100&offer=onex100" target="_blank">Claim Bonus</a>
+        </div>
+        <div class="card">
+            <h3 style="font-size:2rem; font-weight:900;">$200</h3>
+            <h3 style="font-size:1.5rem; font-weight:700; margin-top:5px;">WEEKLY LEADERBOARD</h3>
+            <p>✓ Sign up under code ONEX100</p>
+            <p>✓ Wager on Stake.com</p>
+            <p>✓ Check the leaderboard ranking!</p>
+            <a href="#" onclick="openModal('weekly')">View Leaderboard</a>
+        </div>
+        <div class="card popular">
+            <h3 style="font-size:2rem; font-weight:900;">$1000</h3>
+            <h3 style="font-size:1.5rem; font-weight:700; margin-top:5px;">MONTHLY LEADERBOARD</h3>
+            <p>✓ Sign up under code ONEX100</p>
+            <p>✓ Wager on Stake.com</p>
+            <p>✓ Check the leaderboard ranking!</p>
+            <a href="#" onclick="openModal('monthly')">View Leaderboard</a>
+        </div>
+        <div class="card">
+            <h3 style="font-size:2rem; font-weight:900;">200% DEPOSIT BONUS</h3>
+            <p>✓ Sign up under code ONEX100</p>
+            <p>✓ Deposit $100 - $1000</p>
+            <p>✓ Contact us on Discord</p>
+            <a href="https://stake.bet/c=ONEX100&offer=onex100" target="_blank">Claim Bonus</a>
+        </div>
     </div>
-    <div class="card bg-gray-900 p-4 rounded-lg border border-red-600">
-      <h2 class="text-xl font-bold mb-2">Leaderboard Challenge</h2>
-      <p class="text-sm text-gray-300 mb-4">Top 10 Knoxxy wagers win monthly cash pool.</p>
-      <a href="#leaderboard" class="block bg-red-600 text-white text-center py-2 rounded hover:bg-red-800 transition">View Leaderboard</a>
+    <div class="discord">
+        <p>For support or to claim your bonus, join our <a href="https://discord.gg/onex100" target="_blank">Discord community</a>.</p>
     </div>
-  </section>
+    <div class="footer">
+        <a href="#">Terms & Conditions</a>  
+        <a href="https://discord.gg/onex100" target="_blank">Contact</a>  
+        <a href="https://discord.gg/onex100" target="_blank">Discord</a>
+        <p>&copy; 2025 ONEX100. All rights reserved.</p>
+    </div>
+    <div class="warning">
+        Warning: Gambling involves risk. Please play responsibly. 18+ only. Seek help if needed.
+    </div>
+    <!-- Modal for Leaderboard -->
+    <div id="leaderboardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Weekly Leaderboard</h2>
+            <div class="timer" id="timer"></div>
+            <p class="leaderboard-warning" id="leaderboardWarning">
+                This leaderboard updates once every 24 hours. Prizes are distributed on Mondays. Updates will be posted on Discord.
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Stake Username</th>
+                        <th>Wager Amount</th>
+                        <th>Prize</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardTable">
+                    <!-- Data injected by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Dummy data arrays for leaderboard
+        const weeklyData = [
+            { rank: 1, username: 'WeeklyPro1', wager: '$12,500', prize: '$100' },
+            { rank: 2, username: 'WeeklyPro2', wager: '$11,200', prize: '$80' },
+            { rank: 3, username: 'WeeklyPro3', wager: '$10,800', prize: '$60' },
+            { rank: 4, username: 'WeeklyPro4', wager: '$9,750', prize: '$50' },
+            { rank: 5, username: 'WeeklyPro5', wager: '$8,900', prize: '$40' },
+            { rank: 6, username: 'WeeklyPro6', wager: '$8,200', prize: '$30' },
+            { rank: 7, username: 'WeeklyPro7', wager: '$7,600', prize: '$25' },
+            { rank: 8, username: 'WeeklyPro8', wager: '$7,000', prize: '$20' },
+            { rank: 9, username: 'WeeklyPro9', wager: '$6,500', prize: '$15' },
+            { rank: 10, username: 'WeeklyPro10', wager: '$6,000', prize: '$10' },
+            { rank: 11, username: 'WeeklyPro11', wager: '$5,800', prize: '$8' },
+            { rank: 12, username: 'WeeklyPro12', wager: '$5,500', prize: '$7' },
+            { rank: 13, username: 'WeeklyPro13', wager: '$5,200', prize: '$6' },
+            { rank: 14, username: 'WeeklyPro14', wager: '$4,900', prize: '$5' },
+            { rank: 15, username: 'WeeklyPro15', wager: '$4,700', prize: '$4' },
+            { rank: 16, username: 'WeeklyPro16', wager: '$4,500', prize: '$3' },
+            { rank: 17, username: 'WeeklyPro17', wager: '$4,200', prize: '$3' },
+            { rank: 18, username: 'WeeklyPro18', wager: '$4,000', prize: '$2' },
+            { rank: 19, username: 'WeeklyPro19', wager: '$3,800', prize: '$2' },
+            { rank: 20, username: 'WeeklyPro20', wager: '$3,600', prize: '$2' },
+            { rank: 21, username: 'WeeklyPro21', wager: '$3,400', prize: '$1' },
+            { rank: 22, username: 'WeeklyPro22', wager: '$3,200', prize: '$1' },
+            { rank: 23, username: 'WeeklyPro23', wager: '$3,000', prize: '$1' },
+            { rank: 24, username: 'WeeklyPro24', wager: '$2,800', prize: '$1' },
+            { rank: 25, username: 'WeeklyPro25', wager: '$2,600', prize: '$1' },
+            { rank: 26, username: 'WeeklyPro26', wager: '$2,400', prize: '$1' },
+            { rank: 27, username: 'WeeklyPro27', wager: '$2,200', prize: '$1' },
+            { rank: 28, username: 'WeeklyPro28', wager: '$2,000', prize: '$1' },
+            { rank: 29, username: 'WeeklyPro29', wager: '$1,800', prize: '$1' },
+            { rank: 30, username: 'WeeklyPro30', wager: '$1,600', prize: '$1' }
+        ];
 
-  <!-- Leaderboard -->
-  <section id="leaderboard" class="mt-12 px-6">
-    <h2 class="text-2xl font-bold text-center mb-4 glow">Knoxxy Leaderboard</h2>
-    <table class="w-full text-left bg-gray-800 rounded-lg overflow-hidden">
-      <thead class="bg-gray-700 text-purple-400">
-        <tr>
-          <th class="px-4 py-2">Rank</th>
-          <th class="px-4 py-2">Agent</th>
-          <th class="px-4 py-2">Wagered</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="border-t border-gray-600">
-          <td class="px-4 py-2">1</td>
-          <td class="px-4 py-2">AgentX</td>
-          <td class="px-4 py-2">$12,500</td>
-        </tr>
-        <tr class="border-t border-gray-600">
-          <td class="px-4 py-2">2</td>
-          <td class="px-4 py-2">CryptoWolf</td>
-          <td class="px-4 py-2">$9,800</td>
-        </tr>
-        <tr class="border-t border-gray-600">
-          <td class="px-4 py-2">3</td>
-          <td class="px-4 py-2">KnoxxyBot</td>
-          <td class="px-4 py-2">$7,400</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+        const monthlyData = [
+            { rank: 1, username: 'MonthlyAce1', wager: '$95,000', prize: '$300' },
+            { rank: 2, username: 'MonthlyAce2', wager: '$88,500', prize: '$250' },
+            { rank: 3, username: 'MonthlyAce3', wager: '$82,000', prize: '$200' },
+            { rank: 4, username: 'MonthlyAce4', wager: '$76,200', prize: '$150' },
+            { rank: 5, username: 'MonthlyAce5', wager: '$70,800', prize: '$120' },
+            { rank: 6, username: 'MonthlyAce6', wager: '$65,500', prize: '$100' },
+            { rank: 7, username: 'MonthlyAce7', wager: '$60,900', prize: '$80' },
+            { rank: 8, username: 'MonthlyAce8', wager: '$56,700', prize: '$70' },
+            { rank: 9, username: 'MonthlyAce9', wager: '$52,400', prize: '$60' },
+            { rank: 10, username: 'MonthlyAce10', wager: '$48,300', prize: '$50' },
+            { rank: 11, username: 'MonthlyAce11', wager: '$44,500', prize: '$40' },
+            { rank: 12, username: 'MonthlyAce12', wager: '$41,000', prize: '$35' },
+            { rank: 13, username: 'MonthlyAce13', wager: '$37,800', prize: '$30' },
+            { rank: 14, username: 'MonthlyAce14', wager: '$35,000', prize: '$25' },
+            { rank: 15, username: 'MonthlyAce15', wager: '$32,500', prize: '$20' },
+            { rank: 16, username: 'MonthlyAce16', wager: '$30,200', prize: '$18' },
+            { rank: 17, username: 'MonthlyAce17', wager: '$28,000', prize: '$16' },
+            { rank: 18, username: 'MonthlyAce18', wager: '$26,000', prize: '$14' },
+            { rank: 19, username: 'MonthlyAce19', wager: '$24,300', prize: '$12' },
+            { rank: 20, username: 'MonthlyAce20', wager: '$22,800', prize: '$10' },
+            { rank: 21, username: 'MonthlyAce21', wager: '$21,500', prize: '$8' },
+            { rank: 22, username: 'MonthlyAce22', wager: '$20,400', prize: '$7' },
+            { rank: 23, username: 'MonthlyAce23', wager: '$19,300', prize: '$6' },
+            { rank: 24, username: 'MonthlyAce24', wager: '$18,200', prize: '$5' },
+            { rank: 25, username: 'MonthlyAce25', wager: '$17,100', prize: '$4' },
+            { rank: 26, username: 'MonthlyAce26', wager: '$16,000', prize: '$3' },
+            { rank: 27, username: 'MonthlyAce27', wager: '$15,000', prize: '$3' },
+            { rank: 28, username: 'MonthlyAce28', wager: '$14,200', prize: '$2' },
+            { rank: 29, username: 'MonthlyAce29', wager: '$13,500', prize: '$2' },
+            { rank: 30, username: 'MonthlyAce30', wager: '$12,800', prize: '$1' }
+        ];
 
-  <!-- Footer -->
-  <footer class="text-center text-gray-500 text-sm mt-10 px-4 py-6 border-t border-gray-700">
-    <p>18+ only. Gamble responsibly. Knoxxy Ops is not a gambling provider.</p>
-    <p><a href="/report" class="underline">Report abuse or DMCA</a></p>
-  </footer>
+        // Timer end times: Set from now + 7 days or 30 days
+        const startTime = new Date();
+        const weeklyEndTime = new Date(startTime.getTime() + 7 * 24 * 60 * 60 * 1000);
+        const monthlyEndTime = new Date(startTime.getTime() + 30 * 24 * 60 * 60 * 1000);
 
+        let intervalId = null;
+
+        function updateTimer(type) {
+            const endTime = type === 'weekly' ? weeklyEndTime : monthlyEndTime;
+            const now = new Date().getTime();
+            const distance = endTime.getTime() - now;
+
+            const timer = document.getElementById('timer');
+            if (distance < 0) {
+                timer.innerHTML = `${type === 'weekly' ? 'Weekly' : 'Monthly'} Race Ended!`;
+                if (intervalId) clearInterval(intervalId);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 *24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            timer.innerHTML = `Time Left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById('leaderboardModal');
+            const title = document.getElementById('modalTitle');
+            const warning = document.getElementById('leaderboardWarning');
+            title.innerHTML = `${type === 'weekly' ? 'Weekly' : 'Monthly'} Leaderboard`;
+            warning.innerHTML = type === 'weekly'
+                ? 'This leaderboard updates once every 24 hours. Prizes are distributed on Mondays. Updates will be posted on Discord.'
+                : 'This leaderboard updates once every 24 hours. Prizes are distributed within 48 hours after the month ends. Updates will be posted on Discord.';
+            const tableBody = document.getElementById('leaderboardTable');
+            tableBody.innerHTML = '';
+            const data = type === 'weekly' ? weeklyData : monthlyData;
+            data.forEach(user => {
+                const row = `<tr>
+                    <td>${user.rank}</td>
+                    <td>${user.username}</td>
+                    <td>${user.wager}</td>
+                    <td>${user.prize}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            if (intervalId) clearInterval(intervalId);
+            updateTimer(type);
+            intervalId = setInterval(() => updateTimer(type), 1000);
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('leaderboardModal');
+            if (intervalId) clearInterval(intervalId);
+            modal.style.display = "none";
+        }
+
+        function scrollToCards() {
+            document.querySelector('.cards').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('leaderboardModal');
+            if (event.target == modal) closeModal();
+        };
+    </script>
 </body>
 </html>
