@@ -264,7 +264,7 @@
             border: 1px solid #00D1B2;
             border-radius: 5px;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         #saveData {
             background: #007BFF;
@@ -277,6 +277,19 @@
         }
         #saveData:hover {
             background: #0056B3;
+        }
+        #changePassword {
+            background: #FF4C4C;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+        #changePassword:hover {
+            background: #E63939;
         }
         @media (max-width: 768px) {
             .premium-box {
@@ -395,7 +408,7 @@
         <a href="#">Terms & Conditions</a>  
         <a href="https://discord.gg/onex100" target="_blank">Contact</a>  
         <a href="https://discord.gg/onex100" target="_blank">Discord</a>
-        <a href="#" onclick="openAdminModal()">Admin Update</a>
+        <a href="#" onclick="promptForAdminAccess()">Admin Update</a>
         <p>&copy; 2025 ONEX100. All rights reserved.</p>
     </div>
     <div class="warning">
@@ -421,7 +434,7 @@
                     </tr>
                 </thead>
                 <tbody id="leaderboardTable">
-                    <!-- Dummy data will be inserted here by JS -->
+                    <!-- Data will be inserted here by JS -->
                 </tbody>
             </table>
         </div>
@@ -432,125 +445,180 @@
         <div class="modal-content">
             <span class="close" onclick="closeAdminModal()">&times;</span>
             <h2>Update Leaderboard Data</h2>
-            <label for="weeklyDataInput">Weekly Data (JSON):</label>
-            <textarea id="weeklyDataInput"></textarea>
-            <label for="monthlyDataInput">Monthly Data (JSON):</label>
-            <textarea id="monthlyDataInput"></textarea>
+            <label for="currentWeeklyDataInput">Current Weekly Data (JSON):</label>
+            <textarea id="currentWeeklyDataInput"></textarea>
+            <label for="lastWeeklyDataInput">Last Weekly Data (JSON):</label>
+            <textarea id="lastWeeklyDataInput"></textarea>
+            <label for="currentMonthlyDataInput">Current Monthly Data (JSON):</label>
+            <textarea id="currentMonthlyDataInput"></textarea>
+            <label for="lastMonthlyDataInput">Last Monthly Data (JSON):</label>
+            <textarea id="lastMonthlyDataInput"></textarea>
             <button id="saveData" onclick="saveData()">Save</button>
+            <button id="changePassword" onclick="setAdminPassword()">Change Password</button>
         </div>
     </div>
 
     <script>
-        // Load data from localStorage or use dummy
-        let weeklyData = JSON.parse(localStorage.getItem('weeklyData')) || [
-            { rank: 1, username: 'WeeklyPro1', wager: '$12,500', prize: '$100' },
-            { rank: 2, username: 'WeeklyPro2', wager: '$11,200', prize: '$80' },
-            { rank: 3, username: 'WeeklyPro3', wager: '$10,800', prize: '$60' },
-            { rank: 4, username: 'WeeklyPro4', wager: '$9,750', prize: '$50' },
-            { rank: 5, username: 'WeeklyPro5', wager: '$8,900', prize: '$40' },
-            { rank: 6, username: 'WeeklyPro6', wager: '$8,200', prize: '$30' },
-            { rank: 7, username: 'WeeklyPro7', wager: '$7,600', prize: '$25' },
-            { rank: 8, username: 'WeeklyPro8', wager: '$7,000', prize: '$20' },
-            { rank: 9, username: 'WeeklyPro9', wager: '$6,500', prize: '$15' },
-            { rank: 10, username: 'WeeklyPro10', wager: '$6,000', prize: '$10' },
-            { rank: 11, username: 'WeeklyPro11', wager: '$5,800', prize: '$8' },
-            { rank: 12, username: 'WeeklyPro12', wager: '$5,500', prize: '$7' },
-            { rank: 13, username: 'WeeklyPro13', wager: '$5,200', prize: '$6' },
-            { rank: 14, username: 'WeeklyPro14', wager: '$4,900', prize: '$5' },
-            { rank: 15, username: 'WeeklyPro15', wager: '$4,700', prize: '$4' },
-            { rank: 16, username: 'WeeklyPro16', wager: '$4,500', prize: '$3' },
-            { rank: 17, username: 'WeeklyPro17', wager: '$4,200', prize: '$3' },
-            { rank: 18, username: 'WeeklyPro18', wager: '$4,000', prize: '$2' },
-            { rank: 19, username: 'WeeklyPro19', wager: '$3,800', prize: '$2' },
-            { rank: 20, username: 'WeeklyPro20', wager: '$3,600', prize: '$2' },
-            { rank: 21, username: 'WeeklyPro21', wager: '$3,400', prize: '$1' },
-            { rank: 22, username: 'WeeklyPro22', wager: '$3,200', prize: '$1' },
-            { rank: 23, username: 'WeeklyPro23', wager: '$3,000', prize: '$1' },
-            { rank: 24, username: 'WeeklyPro24', wager: '$2,800', prize: '$1' },
-            { rank: 25, username: 'WeeklyPro25', wager: '$2,600', prize: '$1' },
-            { rank: 26, username: 'WeeklyPro26', wager: '$2,400', prize: '$1' },
-            { rank: 27, username: 'WeeklyPro27', wager: '$2,200', prize: '$1' },
-            { rank: 28, username: 'WeeklyPro28', wager: '$2,000', prize: '$1' },
-            { rank: 29, username: 'WeeklyPro29', wager: '$1,800', prize: '$1' },
-            { rank: 30, username: 'WeeklyPro30', wager: '$1,600', prize: '$1' }
+        // Load data from localStorage or use default dummy data
+        let currentWeeklyData = JSON.parse(localStorage.getItem('currentWeeklyData')) || [
+            { rank: 1, username: 'CurrentWeekly1', wager: '$12,500', prize: '$100' },
+            { rank: 2, username: 'CurrentWeekly2', wager: '$11,200', prize: '$80' },
+            { rank: 3, username: 'CurrentWeekly3', wager: '$10,800', prize: '$60' },
+            { rank: 4, username: 'CurrentWeekly4', wager: '$9,750', prize: '$50' },
+            { rank: 5, username: 'CurrentWeekly5', wager: '$8,900', prize: '$40' },
+            { rank: 6, username: 'CurrentWeekly6', wager: '$8,200', prize: '$30' },
+            { rank: 7, username: 'CurrentWeekly7', wager: '$7,600', prize: '$25' },
+            { rank: 8, username: 'CurrentWeekly8', wager: '$7,000', prize: '$20' },
+            { rank: 9, username: 'CurrentWeekly9', wager: '$6,500', prize: '$15' },
+            { rank: 10, username: 'CurrentWeekly10', wager: '$6,000', prize: '$10' },
+            { rank: 11, username: 'CurrentWeekly11', wager: '$5,800', prize: '$8' },
+            { rank: 12, username: 'CurrentWeekly12', wager: '$5,500', prize: '$7' },
+            { rank: 13, username: 'CurrentWeekly13', wager: '$5,200', prize: '$6' },
+            { rank: 14, username: 'CurrentWeekly14', wager: '$4,900', prize: '$5' },
+            { rank: 15, username: 'CurrentWeekly15', wager: '$4,700', prize: '$4' },
+            { rank: 16, username: 'CurrentWeekly16', wager: '$4,500', prize: '$3' },
+            { rank: 17, username: 'CurrentWeekly17', wager: '$4,200', prize: '$3' },
+            { rank: 18, username: 'CurrentWeekly18', wager: '$4,000', prize: '$2' },
+            { rank: 19, username: 'CurrentWeekly19', wager: '$3,800', prize: '$2' },
+            { rank: 20, username: 'CurrentWeekly20', wager: '$3,600', prize: '$2' },
+            { rank: 21, username: 'CurrentWeekly21', wager: '$3,400', prize: '$1' },
+            { rank: 22, username: 'CurrentWeekly22', wager: '$3,200', prize: '$1' },
+            { rank: 23, username: 'CurrentWeekly23', wager: '$3,000', prize: '$1' },
+            { rank: 24, username: 'CurrentWeekly24', wager: '$2,800', prize: '$1' },
+            { rank: 25, username: 'CurrentWeekly25', wager: '$2,600', prize: '$1' },
+            { rank: 26, username: 'CurrentWeekly26', wager: '$2,400', prize: '$1' },
+            { rank: 27, username: 'CurrentWeekly27', wager: '$2,200', prize: '$1' },
+            { rank: 28, username: 'CurrentWeekly28', wager: '$2,000', prize: '$1' },
+            { rank: 29, username: 'CurrentWeekly29', wager: '$1,800', prize: '$1' },
+            { rank: 30, username: 'CurrentWeekly30', wager: '$1,600', prize: '$1' }
         ];
 
-        let monthlyData = JSON.parse(localStorage.getItem('monthlyData')) || [
-            { rank: 1, username: 'MonthlyAce1', wager: '$95,000', prize: '$300' },
-            { rank: 2, username: 'MonthlyAce2', wager: '$88,500', prize: '$250' },
-            { rank: 3, username: 'MonthlyAce3', wager: '$82,000', prize: '$200' },
-            { rank: 4, username: 'MonthlyAce4', wager: '$76,200', prize: '$150' },
-            { rank: 5, username: 'MonthlyAce5', wager: '$70,800', prize: '$120' },
-            { rank: 6, username: 'MonthlyAce6', wager: '$65,500', prize: '$100' },
-            { rank: 7, username: 'MonthlyAce7', wager: '$60,900', prize: '$80' },
-            { rank: 8, username: 'MonthlyAce8', wager: '$56,700', prize: '$70' },
-            { rank: 9, username: 'MonthlyAce9', wager: '$52,400', prize: '$60' },
-            { rank: 10, username: 'MonthlyAce10', wager: '$48,300', prize: '$50' },
-            { rank: 11, username: 'MonthlyAce11', wager: '$44,500', prize: '$40' },
-            { rank: 12, username: 'MonthlyAce12', wager: '$41,000', prize: '$35' },
-            { rank: 13, username: 'MonthlyAce13', wager: '$37,800', prize: '$30' },
-            { rank: 14, username: 'MonthlyAce14', wager: '$35,000', prize: '$25' },
-            { rank: 15, username: 'MonthlyAce15', wager: '$32,500', prize: '$20' },
-            { rank: 16, username: 'MonthlyAce16', wager: '$30,200', prize: '$18' },
-            { rank: 17, username: 'MonthlyAce17', wager: '$28,000', prize: '$16' },
-            { rank: 18, username: 'MonthlyAce18', wager: '$26,000', prize: '$14' },
-            { rank: 19, username: 'MonthlyAce19', wager: '$24,300', prize: '$12' },
-            { rank: 20, username: 'MonthlyAce20', wager: '$22,800', prize: '$10' },
-            { rank: 21, username: 'MonthlyAce21', wager: '$21,500', prize: '$8' },
-            { rank: 22, username: 'MonthlyAce22', wager: '$20,400', prize: '$7' },
-            { rank: 23, username: 'MonthlyAce23', wager: '$19,300', prize: '$6' },
-            { rank: 24, username: 'MonthlyAce24', wager: '$18,200', prize: '$5' },
-            { rank: 25, username: 'MonthlyAce25', wager: '$17,100', prize: '$4' },
-            { rank: 26, username: 'MonthlyAce26', wager: '$16,000', prize: '$3' },
-            { rank: 27, username: 'MonthlyAce27', wager: '$15,000', prize: '$3' },
-            { rank: 28, username: 'MonthlyAce28', wager: '$14,200', prize: '$2' },
-            { rank: 29, username: 'MonthlyAce29', wager: '$13,500', prize: '$2' },
-            { rank: 30, username: 'MonthlyAce30', wager: '$12,800', prize: '$1' }
+        let lastWeeklyData = JSON.parse(localStorage.getItem('lastWeeklyData')) || [
+            { rank: 1, username: 'LastWeekly1', wager: '$12,000', prize: '$100' },
+            { rank: 2, username: 'LastWeekly2', wager: '$11,000', prize: '$80' },
+            { rank: 3, username: 'LastWeekly3', wager: '$10,000', prize: '$60' },
+            { rank: 4, username: 'LastWeekly4', wager: '$9,000', prize: '$50' },
+            { rank: 5, username: 'LastWeekly5', wager: '$8,000', prize: '$40' },
+            { rank: 6, username: 'LastWeekly6', wager: '$7,000', prize: '$30' },
+            { rank: 7, username: 'LastWeekly7', wager: '$6,000', prize: '$25' },
+            { rank: 8, username: 'LastWeekly8', wager: '$5,000', prize: '$20' },
+            { rank: 9, username: 'LastWeekly9', wager: '$4,000', prize: '$15' },
+            { rank: 10, username: 'LastWeekly10', wager: '$3,000', prize: '$10' },
+            { rank: 11, username: 'LastWeekly11', wager: '$2,000', prize: '$8' },
+            { rank: 12, username: 'LastWeekly12', wager: '$1,000', prize: '$7' },
+            { rank: 13, username: 'LastWeekly13', wager: '$900', prize: '$6' },
+            { rank: 14, username: 'LastWeekly14', wager: '$800', prize: '$5' },
+            { rank: 15, username: 'LastWeekly15', wager: '$700', prize: '$4' },
+            { rank: 16, username: 'LastWeekly16', wager: '$600', prize: '$3' },
+            { rank: 17, username: 'LastWeekly17', wager: '$500', prize: '$3' },
+            { rank: 18, username: 'LastWeekly18', wager: '$400', prize: '$2' },
+            { rank: 19, username: 'LastWeekly19', wager: '$300', prize: '$2' },
+            { rank: 20, username: 'LastWeekly20', wager: '$200', prize: '$2' },
+            { rank: 21, username: 'LastWeekly21', wager: '$100', prize: '$1' },
+            { rank: 22, username: 'LastWeekly22', wager: '$90', prize: '$1' },
+            { rank: 23, username: 'LastWeekly23', wager: '$80', prize: '$1' },
+            { rank: 24, username: 'LastWeekly24', wager: '$70', prize: '$1' },
+            { rank: 25, username: 'LastWeekly25', wager: '$60', prize: '$1' },
+            { rank: 26, username: 'LastWeekly26', wager: '$50', prize: '$1' },
+            { rank: 27, username: 'LastWeekly27', wager: '$40', prize: '$1' },
+            { rank: 28, username: 'LastWeekly28', wager: '$30', prize: '$1' },
+            { rank: 29, username: 'LastWeekly29', wager: '$20', prize: '$1' },
+            { rank: 30, username: 'LastWeekly30', wager: '$10', prize: '$1' }
         ];
 
-        // Dynamic date setup
-        const now = new Date(2025, 9, 26); // October 26, 2025
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const currentMonthIndex = now.getMonth();
-        const currentMonth = months[currentMonthIndex];
-        const previousMonthIndex = currentMonthIndex - 1 >= 0 ? currentMonthIndex - 1 : 11;
-        const previousMonth = months[previousMonthIndex];
-        const currentYear = now.getFullYear();
-        const previousYear = currentMonthIndex - 1 >= 0 ? currentYear : currentYear - 1;
+        let currentMonthlyData = JSON.parse(localStorage.getItem('currentMonthlyData')) || [
+            { rank: 1, username: 'CurrentMonthly1', wager: '$95,000', prize: '$300' },
+            { rank: 2, username: 'CurrentMonthly2', wager: '$88,500', prize: '$250' },
+            { rank: 3, username: 'CurrentMonthly3', wager: '$82,000', prize: '$200' },
+            { rank: 4, username: 'CurrentMonthly4', wager: '$76,200', prize: '$150' },
+            { rank: 5, username: 'CurrentMonthly5', wager: '$70,800', prize: '$120' },
+            { rank: 6, username: 'CurrentMonthly6', wager: '$65,500', prize: '$100' },
+            { rank: 7, username: 'CurrentMonthly7', wager: '$60,900', prize: '$80' },
+            { rank: 8, username: 'CurrentMonthly8', wager: '$56,700', prize: '$70' },
+            { rank: 9, username: 'CurrentMonthly9', wager: '$52,400', prize: '$60' },
+            { rank: 10, username: 'CurrentMonthly10', wager: '$48,300', prize: '$50' },
+            { rank: 11, username: 'CurrentMonthly11', wager: '$44,500', prize: '$40' },
+            { rank: 12, username: 'CurrentMonthly12', wager: '$41,000', prize: '$35' },
+            { rank: 13, username: 'CurrentMonthly13', wager: '$37,800', prize: '$30' },
+            { rank: 14, username: 'CurrentMonthly14', wager: '$35,000', prize: '$25' },
+            { rank: 15, username: 'CurrentMonthly15', wager: '$32,500', prize: '$20' },
+            { rank: 16, username: 'CurrentMonthly16', wager: '$30,200', prize: '$18' },
+            { rank: 17, username: 'CurrentMonthly17', wager: '$28,000', prize: '$16' },
+            { rank: 18, username: 'CurrentMonthly18', wager: '$26,000', prize: '$14' },
+            { rank: 19, username: 'CurrentMonthly19', wager: '$24,300', prize: '$12' },
+            { rank: 20, username: 'CurrentMonthly20', wager: '$22,800', prize: '$10' },
+            { rank: 21, username: 'CurrentMonthly21', wager: '$21,500', prize: '$8' },
+            { rank: 22, username: 'CurrentMonthly22', wager: '$20,400', prize: '$7' },
+            { rank: 23, username: 'CurrentMonthly23', wager: '$19,300', prize: '$6' },
+            { rank: 24, username: 'CurrentMonthly24', wager: '$18,200', prize: '$5' },
+            { rank: 25, username: 'CurrentMonthly25', wager: '$17,100', prize: '$4' },
+            { rank: 26, username: 'CurrentMonthly26', wager: '$16,000', prize: '$3' },
+            { rank: 27, username: 'CurrentMonthly27', wager: '$15,000', prize: '$3' },
+            { rank: 28, username: 'CurrentMonthly28', wager: '$14,200', prize: '$2' },
+            { rank: 29, username: 'CurrentMonthly29', wager: '$13,500', prize: '$2' },
+            { rank: 30, username: 'CurrentMonthly30', wager: '$12,800', prize: '$1' }
+        ];
 
-        // End times
-        const currentMonthEnd = new Date(currentYear, currentMonthIndex + 1, 0, 23, 59, 59);
-        const previousMonthEnd = new Date(previousYear, previousMonthIndex + 1, 0, 23, 59, 59);
-        const currentWeeklyEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-        const lastWeeklyEnd = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        let lastMonthlyData = JSON.parse(localStorage.getItem('lastMonthlyData')) || [
+            { rank: 1, username: 'LastMonthly1', wager: '$90,000', prize: '$300' },
+            { rank: 2, username: 'LastMonthly2', wager: '$85,000', prize: '$250' },
+            { rank: 3, username: 'LastMonthly3', wager: '$80,000', prize: '$200' },
+            { rank: 4, username: 'LastMonthly4', wager: '$75,000', prize: '$150' },
+            { rank: 5, username: 'LastMonthly5', wager: '$70,000', prize: '$120' },
+            { rank: 6, username: 'LastMonthly6', wager: '$65,000', prize: '$100' },
+            { rank: 7, username: 'LastMonthly7', wager: '$60,000', prize: '$80' },
+            { rank: 8, username: 'LastMonthly8', wager: '$55,000', prize: '$70' },
+            { rank: 9, username: 'LastMonthly9', wager: '$50,000', prize: '$60' },
+            { rank: 10, username: 'LastMonthly10', wager: '$45,000', prize: '$50' },
+            { rank: 11, username: 'LastMonthly11', wager: '$40,000', prize: '$40' },
+            { rank: 12, username: 'LastMonthly12', wager: '$35,000', prize: '$35' },
+            { rank: 13, username: 'LastMonthly13', wager: '$30,000', prize: '$30' },
+            { rank: 14, username: 'LastMonthly14', wager: '$25,000', prize: '$25' },
+            { rank: 15, username: 'LastMonthly15', wager: '$20,000', prize: '$20' },
+            { rank: 16, username: 'LastMonthly16', wager: '$15,000', prize: '$18' },
+            { rank: 17, username: 'LastMonthly17', wager: '$10,000', prize: '$16' },
+            { rank: 18, username: 'LastMonthly18', wager: '$9,000', prize: '$14' },
+            { rank: 19, username: 'LastMonthly19', wager: '$8,000', prize: '$12' },
+            { rank: 20, username: 'LastMonthly20', wager: '$7,000', prize: '$10' },
+            { rank: 21, username: 'LastMonthly21', wager: '$6,000', prize: '$8' },
+            { rank: 22, username: 'LastMonthly22', wager: '$5,000', prize: '$7' },
+            { rank: 23, username: 'LastMonthly23', wager: '$4,000', prize: '$6' },
+            { rank: 24, username: 'LastMonthly24', wager: '$3,000', prize: '$5' },
+            { rank: 25, username: 'LastMonthly25', wager: '$2,000', prize: '$4' },
+            { rank: 26, username: 'LastMonthly26', wager: '$1,000', prize: '$3' },
+            { rank: 27, username: 'LastMonthly27', wager: '$900', prize: '$3' },
+            { rank: 28, username: 'LastMonthly28', wager: '$800', prize: '$2' },
+            { rank: 29, username: 'LastMonthly29', wager: '$700', prize: '$2' },
+            { rank: 30, username: 'LastMonthly30', wager: '$600', prize: '$1' }
+        ];
 
         // Leaderboards config
         const leaderboards = {
             currentWeekly: {
                 title: 'Current Week Leaderboard',
-                data: weeklyData,
-                endTime: currentWeeklyEnd,
+                data: currentWeeklyData,
+                endTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
                 warning: 'This leaderboard updates once every 24 hours. Prizes are distributed on Mondays. Updates will be posted on Discord.',
                 raceType: 'Weekly'
             },
             lastWeekly: {
                 title: 'Last Week Leaderboard',
-                data: weeklyData.map(item => ({ ...item, username: 'Last' + item.username })),
-                endTime: lastWeeklyEnd,
+                data: lastWeeklyData,
+                endTime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
                 warning: 'This leaderboard competition has ended. Prizes have been distributed. Updates posted on Discord.',
                 raceType: 'Weekly'
             },
             currentMonthly: {
-                title: `${currentMonth} Monthly Leaderboard`,
-                data: monthlyData,
-                endTime: currentMonthEnd,
+                title: 'Current Monthly Leaderboard',
+                data: currentMonthlyData,
+                endTime: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59),
                 warning: 'This leaderboard updates once every 24 hours. Prizes are distributed within 48 hours after the month ends. Updates will be posted on Discord.',
                 raceType: 'Monthly'
             },
             lastMonthly: {
-                title: `${previousMonth} Monthly Leaderboard`,
-                data: monthlyData.map(item => ({ ...item, username: 'Prev' + item.username })),
-                endTime: previousMonthEnd,
+                title: 'Last Monthly Leaderboard',
+                data: lastMonthlyData,
+                endTime: new Date(new Date().getFullYear(), new Date().getMonth(), 0, 23, 59, 59),
                 warning: 'This leaderboard competition has ended. Prizes have been distributed. Updates posted on Discord.',
                 raceType: 'Monthly'
             }
@@ -615,8 +683,8 @@
                 loadLeaderboard('currentWeekly');
             } else if (type === 'monthly') {
                 optionsDiv.innerHTML = `
-                    <button id="currentMonthlyBtn" onclick="loadLeaderboard('currentMonthly')">${currentMonth} Monthly Leaderboard</button>
-                    <button id="lastMonthlyBtn" onclick="loadLeaderboard('lastMonthly')">${previousMonth} Monthly Leaderboard</button>
+                    <button id="currentMonthlyBtn" onclick="loadLeaderboard('currentMonthly')">Current Monthly Leaderboard</button>
+                    <button id="lastMonthlyBtn" onclick="loadLeaderboard('lastMonthly')">Last Monthly Leaderboard</button>
                 `;
                 loadLeaderboard('currentMonthly');
             }
@@ -640,11 +708,23 @@
         };
 
         // Admin functions
+        function promptForAdminAccess() {
+            const password = prompt('Enter admin password:');
+            const storedPassword = localStorage.getItem('adminPassword') || 'defaultpassword'; // Default password if not set
+            if (password === storedPassword) {
+                openAdminModal();
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
         function openAdminModal() {
             const modal = document.getElementById('adminModal');
             modal.style.display = 'block';
-            document.getElementById('weeklyDataInput').value = JSON.stringify(weeklyData, null, 2);
-            document.getElementById('monthlyDataInput').value = JSON.stringify(monthlyData, null, 2);
+            document.getElementById('currentWeeklyDataInput').value = JSON.stringify(leaderboards.currentWeekly.data, null, 2);
+            document.getElementById('lastWeeklyDataInput').value = JSON.stringify(leaderboards.lastWeekly.data, null, 2);
+            document.getElementById('currentMonthlyDataInput').value = JSON.stringify(leaderboards.currentMonthly.data, null, 2);
+            document.getElementById('lastMonthlyDataInput').value = JSON.stringify(leaderboards.lastMonthly.data, null, 2);
         }
 
         function closeAdminModal() {
@@ -654,18 +734,33 @@
 
         function saveData() {
             try {
-                const newWeekly = JSON.parse(document.getElementById('weeklyDataInput').value);
-                const newMonthly = JSON.parse(document.getElementById('monthlyDataInput').value);
-                localStorage.setItem('weeklyData', JSON.stringify(newWeekly));
-                localStorage.setItem('monthlyData', JSON.stringify(newMonthly));
-                weeklyData = newWeekly;
-                monthlyData = newMonthly;
+                leaderboards.currentWeekly.data = JSON.parse(document.getElementById('currentWeeklyDataInput').value);
+                leaderboards.lastWeekly.data = JSON.parse(document.getElementById('lastWeeklyDataInput').value);
+                leaderboards.currentMonthly.data = JSON.parse(document.getElementById('currentMonthlyDataInput').value);
+                leaderboards.lastMonthly.data = JSON.parse(document.getElementById('lastMonthlyDataInput').value);
+                localStorage.setItem('currentWeeklyData', JSON.stringify(leaderboards.currentWeekly.data));
+                localStorage.setItem('lastWeeklyData', JSON.stringify(leaderboards.lastWeekly.data));
+                localStorage.setItem('currentMonthlyData', JSON.stringify(leaderboards.currentMonthly.data));
+                localStorage.setItem('lastMonthlyData', JSON.stringify(leaderboards.lastMonthly.data));
                 alert('Data saved successfully!');
                 closeAdminModal();
             } catch (e) {
                 alert('Invalid JSON format. Please check and try again.');
             }
         }
+
+        function setAdminPassword() {
+            const newPassword = prompt('Enter new admin password:');
+            if (newPassword) {
+                localStorage.setItem('adminPassword', newPassword);
+                alert('Password set successfully!');
+            }
+        }
+
+        // To set initial password, you can call setAdminPassword() in console or uncomment below
+        // if (!localStorage.getItem('adminPassword')) {
+        //     setAdminPassword();
+        // }
     </script>
 </body>
 </html>
