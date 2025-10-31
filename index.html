@@ -270,6 +270,15 @@
             padding: 10px;
             margin-bottom: 15px;
         }
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #071524;
+            color: #FFFFFF;
+            border: 1px solid #00D1B2;
+            border-radius: 5px;
+        }
         #saveData {
             background: #007BFF;
             color: #FFFFFF;
@@ -451,12 +460,20 @@
             <h2>Update Leaderboard Data</h2>
             <label for="currentWeeklyDataInput">Current Weekly Data (JSON):</label>
             <textarea id="currentWeeklyDataInput"></textarea>
+            <label for="currentWeeklyEndTime">Current Weekly End Time (YYYY-MM-DDTHH:MM):</label>
+            <input type="datetime-local" id="currentWeeklyEndTime">
             <label for="lastWeeklyDataInput">Last Weekly Data (JSON):</label>
             <textarea id="lastWeeklyDataInput"></textarea>
+            <label for="lastWeeklyEndTime">Last Weekly End Time (YYYY-MM-DDTHH:MM):</label>
+            <input type="datetime-local" id="lastWeeklyEndTime">
             <label for="currentMonthlyDataInput">Current Monthly Data (JSON):</label>
             <textarea id="currentMonthlyDataInput"></textarea>
+            <label for="currentMonthlyEndTime">Current Monthly End Time (YYYY-MM-DDTHH:MM):</label>
+            <input type="datetime-local" id="currentMonthlyEndTime">
             <label for="lastMonthlyDataInput">Last Monthly Data (JSON):</label>
             <textarea id="lastMonthlyDataInput"></textarea>
+            <label for="lastMonthlyEndTime">Last Monthly End Time (YYYY-MM-DDTHH:MM):</label>
+            <input type="datetime-local" id="lastMonthlyEndTime">
             <button id="saveData" onclick="saveData()">Save</button>
             <button id="changePassword" onclick="setAdminPassword()">Change Password</button>
         </div>
@@ -601,32 +618,34 @@
             currentWeekly: {
                 title: 'Current Week Leaderboard',
                 data: currentWeeklyData,
-                endTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+                endTime: new Date(localStorage.getItem('currentWeeklyEndTime') || new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
                 warning: 'This leaderboard updates once every 24 hours. Prizes are distributed on Mondays. Updates will be posted on Discord.',
                 raceType: 'Weekly'
             },
             lastWeekly: {
                 title: 'Last Week Leaderboard',
                 data: lastWeeklyData,
-                endTime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
+                endTime: new Date(localStorage.getItem('lastWeeklyEndTime') || new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
                 warning: 'This leaderboard competition has ended. Prizes have been distributed. Updates posted on Discord.',
                 raceType: 'Weekly'
             },
             currentMonthly: {
                 title: 'Current Monthly Leaderboard',
                 data: currentMonthlyData,
-                endTime: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59),
+                endTime: new Date(localStorage.getItem('currentMonthlyEndTime') || new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59)),
                 warning: 'This leaderboard updates once every 24 hours. Prizes are distributed within 48 hours after the month ends. Updates will be posted on Discord.',
                 raceType: 'Monthly'
             },
             lastMonthly: {
                 title: 'Last Monthly Leaderboard',
                 data: lastMonthlyData,
-                endTime: new Date(new Date().getFullYear(), new Date().getMonth(), 0, 23, 59, 59),
+                endTime: new Date(localStorage.getItem('lastMonthlyEndTime') || new Date(new Date().getFullYear(), new Date().getMonth(), 0, 23, 59, 59)),
                 warning: 'This leaderboard competition has ended. Prizes have been distributed. Updates posted on Discord.',
                 raceType: 'Monthly'
             }
         };
+
+        let lastUpdated = localStorage.getItem('lastUpdated') || new Date().toLocaleString();
 
         let intervalId = null;
 
@@ -652,7 +671,7 @@
             const config = leaderboards[subtype];
             document.getElementById('modalTitle').innerHTML = config.title;
             document.getElementById('leaderboardWarning').innerHTML = config.warning;
-            document.getElementById('lastUpdated').innerHTML = `Last updated: ${new Date().toLocaleString()}`;
+            document.getElementById('lastUpdated').innerHTML = `Last updated: ${lastUpdated}`;
 
             const tableBody = document.getElementById('leaderboardTable');
             tableBody.innerHTML = '';
@@ -714,7 +733,7 @@
         // Admin functions
         function promptForAdminAccess() {
             const password = prompt('Enter admin password:');
-            const storedPassword = localStorage.getItem('adminPassword') || 'one'; // Default password if not set
+            const storedPassword = localStorage.getItem('adminPassword') || 'defaultpassword'; // Default password if not set
             if (password === storedPassword) {
                 openAdminModal();
             } else {
@@ -726,9 +745,13 @@
             const modal = document.getElementById('adminModal');
             modal.style.display = 'block';
             document.getElementById('currentWeeklyDataInput').value = JSON.stringify(leaderboards.currentWeekly.data, null, 2);
+            document.getElementById('currentWeeklyEndTime').value = leaderboards.currentWeekly.endTime.toISOString().slice(0,16);
             document.getElementById('lastWeeklyDataInput').value = JSON.stringify(leaderboards.lastWeekly.data, null, 2);
+            document.getElementById('lastWeeklyEndTime').value = leaderboards.lastWeekly.endTime.toISOString().slice(0,16);
             document.getElementById('currentMonthlyDataInput').value = JSON.stringify(leaderboards.currentMonthly.data, null, 2);
+            document.getElementById('currentMonthlyEndTime').value = leaderboards.currentMonthly.endTime.toISOString().slice(0,16);
             document.getElementById('lastMonthlyDataInput').value = JSON.stringify(leaderboards.lastMonthly.data, null, 2);
+            document.getElementById('lastMonthlyEndTime').value = leaderboards.lastMonthly.endTime.toISOString().slice(0,16);
         }
 
         function closeAdminModal() {
@@ -742,14 +765,24 @@
                 leaderboards.lastWeekly.data = JSON.parse(document.getElementById('lastWeeklyDataInput').value);
                 leaderboards.currentMonthly.data = JSON.parse(document.getElementById('currentMonthlyDataInput').value);
                 leaderboards.lastMonthly.data = JSON.parse(document.getElementById('lastMonthlyDataInput').value);
+                leaderboards.currentWeekly.endTime = new Date(document.getElementById('currentWeeklyEndTime').value);
+                leaderboards.lastWeekly.endTime = new Date(document.getElementById('lastWeeklyEndTime').value);
+                leaderboards.currentMonthly.endTime = new Date(document.getElementById('currentMonthlyEndTime').value);
+                leaderboards.lastMonthly.endTime = new Date(document.getElementById('lastMonthlyEndTime').value);
                 localStorage.setItem('currentWeeklyData', JSON.stringify(leaderboards.currentWeekly.data));
                 localStorage.setItem('lastWeeklyData', JSON.stringify(leaderboards.lastWeekly.data));
                 localStorage.setItem('currentMonthlyData', JSON.stringify(leaderboards.currentMonthly.data));
                 localStorage.setItem('lastMonthlyData', JSON.stringify(leaderboards.lastMonthly.data));
+                localStorage.setItem('currentWeeklyEndTime', leaderboards.currentWeekly.endTime.toISOString());
+                localStorage.setItem('lastWeeklyEndTime', leaderboards.lastWeekly.endTime.toISOString());
+                localStorage.setItem('currentMonthlyEndTime', leaderboards.currentMonthly.endTime.toISOString());
+                localStorage.setItem('lastMonthlyEndTime', leaderboards.lastMonthly.endTime.toISOString());
+                lastUpdated = new Date().toLocaleString();
+                localStorage.setItem('lastUpdated', lastUpdated);
                 alert('Data saved successfully!');
                 closeAdminModal();
             } catch (e) {
-                alert('Invalid JSON format. Please check and try again.');
+                alert('Invalid JSON or date format. Please check and try again.');
             }
         }
 
