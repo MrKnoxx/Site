@@ -1,366 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONEX100 - Exclusive Rewards & Bonuses</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #071524; color: #FFFFFF; text-align: center; overflow-x: hidden; line-height: 1.6; }
-        .header { padding: 40px 20px; background: linear-gradient(180deg, #102A43, #071524); }
-        .premium-box {
-            background: linear-gradient(135deg, #102A43, #071524);
-            border: 2px solid #00D1B2;
-            box-shadow: 0 4px 15px rgba(0, 209, 178, 0.3);
-            padding: 20px 30px; border-radius: 15px;
-            font-size: 2.5rem; font-weight: 900; color: #FFFFFF;
-            text-transform: uppercase; animation: zoomIn 1.5s ease-in-out;
-            text-shadow: 0 0 10px rgba(0, 209, 178, 0.5);
-            max-width: 90%; margin: 0 auto;
-        }
-        @keyframes zoomIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
-        .header h1 { font-size: 2.5rem; font-weight: 700; text-transform: uppercase; margin: 20px 0; color: #FFFFFF; }
-        .header p { font-size: 1.2rem; margin-bottom: 20px; color: #A8B3C5; max-width: 800px; margin: 0 auto 20px auto; }
-        .arrow { font-size: 2rem; color: #00D1B2; animation: bounce 2s infinite; cursor: pointer; }
-        @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
-        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 40px 10px; max-width: 1200px; margin: 0 auto; }
-        .card {
-            background: #102A43; padding: 20px; border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 300px; display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .card:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 209, 178, 0.5); }
-        .card h3 { font-size: 1.8rem; margin-bottom: 15px; color: #00D1B2; }
-        .card p { font-size: 1rem; color: #A8B3C5; margin-bottom: 10px; text-align: left; padding-left: 15px; }
-        .card a {
-            display: inline-block; background: #007BFF; color: #FFFFFF;
-            padding: 12px 25px; border-radius: 5px; text-decoration: none;
-            font-weight: 700; align-self: center; margin-top: auto;
-            transition: background 0.3s ease;
-        }
-        .card a:hover { background: #0056B3; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONEX100 - Exclusive Rewards & Bonuses</title>
 
-        .discord { padding: 20px; background: #102A43; margin: 20px auto; max-width: 1200px; border-radius: 10px; }
-        .discord p { font-size: 1.1rem; color: #A8B3C5; }
-        .discord a { color: #7289DA; text-decoration: none; font-weight: 700; }
-        .discord a:hover { text-decoration: underline; }
-        .footer { padding: 20px; background: #071524; border-top: 1px solid #102A43; }
-        .footer a { color: #00D1B2; margin: 0 15px; text-decoration: none; }
-        .footer a:hover { text-decoration: underline; }
-        .warning { padding: 20px; font-size: 1rem; color: #FFFFFF; background-color: #071524; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); }
-        .modal-content {
-            background-color: #102A43; margin: 5% auto; padding: 20px; border-radius: 10px;
-            width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto;
-        }
-        .close { color: #FFFFFF; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-        .close:hover { color: #00D1B2; }
-        .timer { font-size: 1.2rem; color: #00D1B2; margin: 15px 0; }
-        .leaderboard-warning { font-size: 1rem; color: #A8B3C5; margin-bottom: 15px; font-style: italic; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #00D1B2; }
-        th { background-color: #007BFF; color: #FFFFFF; }
-        tr:hover { background-color: #071524; }
-        td:nth-child(4) { color: #00D1B2; }
-        #options { display: flex; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
-        #options button {
-            background: #007BFF; color: #FFFFFF; padding: 10px 20px; border: none;
-            border-radius: 5px; margin: 5px; cursor: pointer;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-        #options button:hover { background: #0056B3; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
-        #options button.active { background: #0056B3; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #071524;
+    color: #FFFFFF;
+    text-align: center;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+.header {
+    padding: 40px 20px;
+    background: linear-gradient(180deg, #102A43, #071524);
+}
+
+.premium-box {
+    background: linear-gradient(135deg, #102A43, #071524);
+    border: 2px solid #00D1B2;
+    box-shadow: 0 4px 15px rgba(0, 209, 178, 0.3);
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.header h1 {
+    margin: 20px 0;
+}
+
+.header p {
+    color: #A8B3C5;
+}
+
+.arrow {
+    font-size: 2rem;
+    color: #00D1B2;
+    cursor: pointer;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px 15px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.card {
+    background: #102A43;
+    padding: 25px;
+    border-radius: 12px;
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0,209,178,0.5);
+}
+
+.card h3 {
+    color: #00D1B2;
+    margin-bottom: 10px;
+}
+
+.card p {
+    text-align: left;
+    color: #A8B3C5;
+    font-size: 0.95rem;
+}
+
+.card a {
+    margin-top: 15px;
+    display: inline-block;
+    background: #007BFF;
+    padding: 12px 25px;
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.card a:hover {
+    background: #0056B3;
+}
+
+/* Refer & Earn highlight */
+.card.refer {
+    border: 2px solid #00D1B2;
+    box-shadow: 0 0 25px rgba(0,209,178,0.4);
+}
+
+.discord, .warning {
+    margin: 30px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background: #102A43;
+    border-radius: 10px;
+}
+
+.discord a {
+    color: #7289DA;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.footer {
+    padding: 20px;
+    border-top: 1px solid #102A43;
+}
+</style>
 </head>
+
 <body>
-    <div class="header">
-        <div class="premium-box">WELCOME TO ONEX100 COMMUNITY</div>
-        <h1>THE BEST EXCLUSIVE REWARDS & BONUSES</h1>
-        <p>Exclusive Offers: Choose from our premium bonus packages designed to maximize your gaming experience.</p>
-        <div class="arrow" onclick="scrollToCards()">↓</div>
+
+<div class="header">
+    <div class="premium-box">WELCOME TO ONEX100 COMMUNITY</div>
+    <h1>THE BEST EXCLUSIVE REWARDS & BONUSES</h1>
+    <p>Exclusive Offers designed to maximize your gaming experience</p>
+    <div class="arrow" onclick="document.querySelector('.cards').scrollIntoView({behavior:'smooth'})">↓</div>
+</div>
+
+<div class="cards">
+
+    <!-- FREE BONUS -->
+    <div class="card">
+        <h3>$35 FREE BONUS</h3>
+        <p>✓ Sign up under code <b>ONEX100</b></p>
+        <p>✓ New users only</p>
+        <p>✓ Deposit $35 & wager $35</p>
+        <p>✓ Contact us on Discord</p>
+        <p>✓ Receive $35 for free</p>
+        <a href="https://onex100.openinapp.link/ONEX100" target="_blank">Claim Bonus</a>
     </div>
 
-    <div class="cards">
-        <div class="card">
-            <h3 style="font-size: 2rem; font-weight: 900;">$35 FREE BONUS</h3>
-            <p>✓ Sign up under code ONEX100</p>
-            <p>✓ New users Only</p>
-            <p>✓ Deposit $35 wager $35</p>
-            <p>✓ Contact us on Discord</p>
-            <p>✓ Receive $35 for free</p>
-            <a href="http://stake.bet?c=ONEX100&offer=onex100" target="_blank">Claim Bonus</a>
-        </div>
-        <div class="card">
-            <h3 style="font-size: 2rem; font-weight: 900;">$200</h3>
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin-top: 5px;">WEEKLY LEADERBOARD</h3>
-            <p>✓ Sign up under code ONEX100</p>
-            <p>✓ Wager on Stake.com</p>
-            <p>✓ Check the leaderboard ranking!</p>
-            <a href="#" onclick="openModal('weekly')">View Leaderboard</a>
-        </div>
-        <div class="card popular">
-            <h3 style="font-size: 2rem; font-weight: 900;">$1000</h3>
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin-top: 5px;">MONTHLY LEADERBOARD</h3>
-            <p>✓ Sign up under code ONEX100</p>
-            <p>✓ Wager on Stake.com</p>
-            <p>✓ Check the leaderboard ranking!</p>
-            <a href="#" onclick="openModal('monthly')">View Leaderboard</a>
-        </div>
+    <!-- WEEKLY -->
+    <div class="card">
+        <h3>$300</h3>
+        <h3 style="font-size:1.4rem">WEEKLY LEADERBOARD</h3>
+        <p>✓ Sign up under code ONEX100</p>
+        <p>✓ Wager on Stake.com</p>
+        <p>✓ Check leaderboard ranking</p>
+        <a href="#">View Leaderboard</a>
     </div>
 
-    <div class="discord">
-        <p>For support or to claim your bonus, join our <a href="https://discord.gg/onex100" target="_blank">Discord community</a>.</p>
+    <!-- MONTHLY -->
+    <div class="card">
+        <h3>$2000</h3>
+        <h3 style="font-size:1.4rem">MONTHLY LEADERBOARD</h3>
+        <p>✓ Sign up under code ONEX100</p>
+        <p>✓ Wager on Stake.com</p>
+        <p>✓ Check leaderboard ranking</p>
+        <a href="#">View Leaderboard</a>
     </div>
 
-    <div class="footer">
-        <a href="#">Terms & Conditions</a>  
-        <a href="https://discord.gg/onex100" target="_blank">Contact</a>  
-        <a href="https://discord.gg/onex100" target="_blank">Discord</a>
-        <p>&copy; 2025 ONEX100. All rights reserved.</p>
+    <!-- REFER & EARN -->
+    <div class="card refer">
+        <h3>REFER & EARN</h3>
+        <p>✓ Share your referral link</p>
+        <p>✓ Friend signs up & wagers</p>
+        <p>✓ Referral Code / Link:</p>
+        <p style="color:#00D1B2; word-break:break-all;">
+            https://onex100.openinapp.link/ONEX100
+        </p>
+        <p>✓ Claim reward via Discord</p>
+        <p>✓ Proof must be sent in a Ticket</p>
+        <a href="https://discord.gg/onex100" target="_blank">Claim Reward</a>
     </div>
 
-    <div class="warning">
-        Warning: Gambling involves risk. Please play responsibly. 18+ only. Seek help if needed.
-    </div>
+</div>
 
-    <!-- Leaderboard Modal -->
-    <div id="leaderboardModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle"></h2>
-            <div id="options"></div>
-            <div class="timer" id="timer"></div>
-            <p class="leaderboard-warning" id="leaderboardWarning"></p>
-            <p class="leaderboard-warning" id="lastUpdated"></p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Stake Username</th>
-                        <th>Wager Amount</th>
-                        <th>Prize</th>
-                    </tr>
-                </thead>
-                <tbody id="leaderboardTable"></tbody>
-            </table>
-        </div>
-    </div>
+<div class="discord">
+    <p>Need help or want to claim rewards?  
+    Join our <a href="https://discord.gg/onex100" target="_blank">Discord Community</a></p>
+</div>
 
-  <script>
-    // === Leaderboard Data ===
-let currentWeeklyData = [
-  { rank: 1, username: 'Parv*******', wager: '$17,922.65', prize: '$100' },
-  { rank: 2, username: 'Tayy*******', wager: '$4,268.08', prize: '$40' },
-  { rank: 3, username: 'Sanj*******', wager: '$3,645.67', prize: '$25' },
-  { rank: 4, username: 'suba*******', wager: '$2,772.19', prize: '$20' },
-  { rank: 5, username: 'BaBA*******', wager: '$2,746.10', prize: '$15' },
-  { rank: 6, username: 'Ashi*******', wager: '$1,984.25', prize: '$0' },
-  { rank: 7, username: 'Manj*******', wager: '$1,383.40', prize: '$0' },
-  { rank: 8, username: 'JAAT*******', wager: '$1,186.62', prize: '$0' },
-  { rank: 9, username: 'Veno*******', wager: '$1,169.54', prize: '$0' },
-  { rank: 10, username: 'Riya*******', wager: '$791.70', prize: '$0' },
-  { rank: 11, username: 'Mohd*******', wager: '$509.23', prize: '$0' },
-  { rank: 12, username: 'mqal*******', wager: '$484.83', prize: '$0' },
-  { rank: 13, username: 'Same*******', wager: '$403.16', prize: '$0' },
-  { rank: 14, username: 'Suna*******', wager: '$311.59', prize: '$0' },
-  { rank: 15, username: 'Info*******', wager: '$309.81', prize: '$0' },
-  { rank: 16, username: 'Ranj*******', wager: '$209.36', prize: '$0' },
-  { rank: 17, username: 'Sudi*******', wager: '$195.38', prize: '$0' },
-  { rank: 18, username: 'Raj3*******', wager: '$173.05', prize: '$0' },
-  { rank: 19, username: 'mayu*******', wager: '$166.43', prize: '$0' },
-  { rank: 20, username: 'Apul*******', wager: '$154.00', prize: '$0' },
-  { rank: 21, username: 'Brah*******', wager: '$149.79', prize: '$0' },
-  { rank: 22, username: 'Jyot*******', wager: '$147.66', prize: '$0' },
-  { rank: 23, username: 'sruj*******', wager: '$119.37', prize: '$0' },
-  { rank: 24, username: 'Rajk*******', wager: '$117.05', prize: '$0' },
-  { rank: 25, username: 'Ravi*******', wager: '$110.18', prize: '$0' },
-  { rank: 26, username: 'Roha*******', wager: '$108.68', prize: '$0' },
-  { rank: 27, username: 'Sohi*******', wager: '$106.39', prize: '$0' },
-  { rank: 28, username: 'Thok*******', wager: '$57.35', prize: '$0' },
-  { rank: 29, username: 'Prit*******', wager: '$51.88', prize: '$0' },
-  { rank: 30, username: 'Jaat*******', wager: '$48.43', prize: '$0' }
-];
+<div class="warning">
+    ⚠️ Gambling involves risk. Play responsibly. 18+ only.
+</div>
 
+<div class="footer">
+    <p>© 2026 ONEX100. All rights reserved.</p>
+</div>
 
-    let lastWeeklyData = [
-      { rank: 1, username: 'subashmundagad', wager: '$23,126.19', prize: '$100' },
-      { rank: 2, username: 'Ashiqueimran', wager: '$19,393.14', prize: '$40' },
-      { rank: 3, username: 'Harami999', wager: '$8,950.22', prize: '$25' },
-      { rank: 4, username: 'Manju7501', wager: '$5,495.45', prize: '$20' },
-      { rank: 5, username: 'Parvez1112', wager: '$3,796.66', prize: '$15' },
-      { rank: 6, username: 'Mohdirfan9935', wager: '$2,944.18', prize: '0' },
-      { rank: 7, username: 'Sudip1993', wager: '$1,698.58', prize: '0' },
-      { rank: 8, username: 'Preetttiii', wager: '$1,431.05', prize: '0' },
-      { rank: 9, username: 'BaBA834bdg', wager: '$1,143.77', prize: '0' },
-      { rank: 10, username: 'harshabr1', wager: '$984.55', prize: '0' },
-      { rank: 11, username: 'sushma070', wager: '$842.90', prize: '0' },
-      { rank: 12, username: 'Tayyabalili', wager: '$784.68', prize: '0' },
-      { rank: 13, username: 'Abmamamrla', wager: '$672.09', prize: '0' },
-      { rank: 14, username: 'Sanjaygohil111', wager: '$594.68', prize: '0' },
-      { rank: 15, username: 'Ompandit111', wager: '$579.45', prize: '0' },
-      { rank: 16, username: 'Riyaz9540', wager: '$574.58', prize: '0' },
-      { rank: 17, username: 'Jaatavi1219', wager: '$499.40', prize: '0' },
-      { rank: 18, username: 'Venom3144', wager: '$436.33', prize: '0' },
-      { rank: 19, username: 'Brahmraj', wager: '$410.62', prize: '0' },
-      { rank: 20, username: 'mayur1x', wager: '$289.39', prize: '0' },
-      { rank: 21, username: 'Ravianjani', wager: '$287.77', prize: '0' },
-      { rank: 22, username: 'Jattsaab000', wager: '$259.37', prize: '0' },
-      { rank: 23, username: 'Shikhardeep12', wager: '$238.05', prize: '0' },
-      { rank: 24, username: 'Arunjatav166', wager: '$220.35', prize: '0' },
-      { rank: 25, username: '555bhatti', wager: '$216.89', prize: '0' },
-      { rank: 26, username: 'Paswan1968', wager: '$163.96', prize: '0' },
-      { rank: 27, username: 'Paulx100', wager: '$146.76', prize: '0' },
-      { rank: 28, username: 'Armwrestler77', wager: '$136.02', prize: '0' },
-      { rank: 29, username: 'Deepanshu1879', wager: '$134.92', prize: '0' },
-      { rank: 30, username: 'Harsh121a', wager: '$123.10', prize: '0' }
-    ];
-
-    let currentMonthlyData = [
-      { rank: 1, username: 'comming soon', wager: '$0', prize: '$800' },
-      { rank: 2, username: 'comming soon', wager: '$0', prize: '$400' },
-      { rank: 3, username: 'comming soon', wager: '$0', prize: '$300' },
-      { rank: 4, username: 'comming soon', wager: '$0', prize: '$200' },
-      { rank: 5, username: 'comming soon', wager: '$0', prize: '$120' },
-      { rank: 6, username: 'comming soon', wager: '$0', prize: '$80' },
-      { rank: 7, username: 'comming soon', wager: '$0', prize: '$60' },
-      { rank: 8, username: 'comming soon', wager: '$0', prize: '$40' },
-      { rank: 9, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 10, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 11, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 12, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 13, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 14, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 15, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 16, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 17, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 18, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 19, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 20, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 21, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 22, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 23, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 24, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 25, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 26, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 27, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 28, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 29, username: 'comming soon', wager: '$0', prize: '$0' },
-      { rank: 30, username: 'comming soon', wager: '$0', prize: '$0' }
-    ];
-
-    let lastMonthlyData = [
-        { rank: 1, username: 'there was no wager tournment on last month ', wager: '0', prize: '$0' },
-    ];
-
-    // === Manual End Times (Yahan aap date/time change kar sakte hain) ===
-    const currentWeeklyEndTime = new Date("2025-11-02T23:59:59"); // Current week ends
-    const lastWeeklyEndTime = new Date("2025-10-26T23:59:59");    // Last week ended
-    const currentMonthlyEndTime = new Date("2025-11-30T23:59:59"); // Current month ends
-    const lastMonthlyEndTime = new Date("2025-10-02T23:59:59");   // Last month ended
-
-    const leaderboards = {
-        currentWeekly: { 
-            title: 'Current Week Leaderboard', 
-            data: currentWeeklyData, 
-            endTime: currentWeeklyEndTime, 
-            raceType: 'Weekly', 
-            warning: 'This leaderboard updates once every 24 hours. Prizes are distributed on Mondays.' 
-        },
-        lastWeekly: { 
-            title: 'Last Week Leaderboard', 
-            data: lastWeeklyData, 
-            endTime: lastWeeklyEndTime, 
-            raceType: 'Weekly', 
-            warning: 'This leaderboard competition has ended.' 
-        },
-        currentMonthly: { 
-            title: 'Current Monthly Leaderboard', 
-            data: currentMonthlyData, 
-            endTime: currentMonthlyEndTime, 
-            raceType: 'Monthly', 
-            warning: 'This leaderboard updates once every 24 hours. Prizes are distributed within 48 hours after the month ends.' 
-        },
-        lastMonthly: { 
-            title: 'Last Monthly Leaderboard', 
-            data: lastMonthlyData, 
-            endTime: lastMonthlyEndTime, 
-            raceType: 'Monthly', 
-            warning: 'This leaderboard competition has ended.' 
-        }
-    };
-
-    let intervalId = null;
-
-    function updateTimer(endTime, raceType) {
-        const timerEl = document.getElementById('timer');
-        let now = new Date().getTime();
-        let diff = endTime.getTime() - now;
-
-        if (diff <= 0) {
-            timerEl.innerHTML = `${raceType} Leaderboard Ended!`;
-            clearInterval(intervalId);
-            return;
-        }
-
-        let d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        let s = Math.floor((diff % (1000 * 60)) / 1000);
-
-        timerEl.innerHTML = `Time Left: ${d}d ${h}h ${m}m ${s}s`;
-    }
-
-    function loadLeaderboard(type) {
-        const config = leaderboards[type];
-        document.getElementById('modalTitle').textContent = config.title;
-        document.getElementById('leaderboardWarning').textContent = config.warning;
-        document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleString();
-
-        const table = document.getElementById('leaderboardTable');
-        table.innerHTML = config.data.map(row =>
-            `<tr><td>${row.rank}</td><td>${row.username}</td><td>${row.wager}</td><td>${row.prize}</td></tr>`
-        ).join('');
-
-        document.querySelectorAll('#options button').forEach(b => b.classList.remove('active'));
-        const btn = document.getElementById(type + 'Btn');
-        if (btn) btn.classList.add('active');
-
-        clearInterval(intervalId);
-        updateTimer(config.endTime, config.raceType);
-        intervalId = setInterval(() => updateTimer(config.endTime, config.raceType), 1000);
-    }
-
-    function openModal(type) {
-        const modal = document.getElementById('leaderboardModal');
-        const options = document.getElementById('options');
-        modal.style.display = 'block';
-
-        if (type === 'weekly') {
-            options.innerHTML = `
-                <button id="currentWeeklyBtn" onclick="loadLeaderboard('currentWeekly')">Current Week</button>
-                <button id="lastWeeklyBtn" onclick="loadLeaderboard('lastWeekly')">Last Week</button>`;
-            loadLeaderboard('currentWeekly');
-        } else {
-            options.innerHTML = `
-                <button id="currentMonthlyBtn" onclick="loadLeaderboard('currentMonthly')">Current Month</button>
-                <button id="lastMonthlyBtn" onclick="loadLeaderboard('lastMonthly')">Last Month</button>`;
-            loadLeaderboard('currentMonthly');
-        }
-    }
-
-    function closeModal() {
-        clearInterval(intervalId);
-        document.getElementById('leaderboardModal').style.display = 'none';
-    }
-
-    function scrollToCards() {
-        document.querySelector('.cards').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    window.onclick = e => {
-        if (e.target == document.getElementById('leaderboardModal')) closeModal();
-    };
-</script>
-
-
+</body>
+</html>
