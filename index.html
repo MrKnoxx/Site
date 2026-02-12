@@ -1,206 +1,485 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ONEX100 - Exclusive Rewards & Bonuses</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONEX100 - Exclusive Rewards & Bonuses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #071524; color: #FFFFFF; text-align: center; overflow-x: hidden; line-height: 1.6; }
+        .header { padding: 40px 20px; background: linear-gradient(180deg, #102A43, #071524); }
+        .premium-box {
+            background: linear-gradient(135deg, #102A43, #071524);
+            border: 2px solid #00D1B2;
+            box-shadow: 0 4px 15px rgba(0, 209, 178, 0.3);
+            padding: 20px 30px; border-radius: 15px;
+            font-size: 2.5rem; font-weight: 900; color: #FFFFFF;
+            text-transform: uppercase; animation: zoomIn 1.5s ease-in-out;
+            text-shadow: 0 0 10px rgba(0, 209, 178, 0.5);
+            max-width: 90%; margin: 0 auto;
+        }
+        @keyframes zoomIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+        .header h1 { font-size: 2.5rem; font-weight: 700; text-transform: uppercase; margin: 20px 0; color: #FFFFFF; }
+        .header p { font-size: 1.2rem; margin-bottom: 20px; color: #A8B3C5; max-width: 800px; margin: 0 auto 20px auto; }
+        .arrow { font-size: 2rem; color: #00D1B2; animation: bounce 2s infinite; cursor: pointer; }
+        @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 40px 10px; max-width: 1200px; margin: 0 auto; }
+        .card {
+            background: #102A43; padding: 20px; border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 300px; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .card:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 209, 178, 0.5); }
+        .card h3 { font-size: 1.8rem; margin-bottom: 15px; color: #00D1B2; }
+        .card p { font-size: 1rem; color: #A8B3C5; margin-bottom: 10px; text-align: left; padding-left: 15px; }
+        .card a {
+            display: inline-block; background: #007BFF; color: #FFFFFF;
+            padding: 12px 25px; border-radius: 5px; text-decoration: none;
+            font-weight: 700; align-self: center; margin-top: auto;
+            transition: background 0.3s ease;
+        }
+        .card a:hover { background: #0056B3; }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    background-color: #071524;
-    color: #FFFFFF;
-    text-align: center;
-    overflow-x: hidden;
-    line-height: 1.6;
-}
-
-.header {
-    padding: 40px 20px;
-    background: linear-gradient(180deg, #102A43, #071524);
-}
-
-.premium-box {
-    background: linear-gradient(135deg, #102A43, #071524);
-    border: 2px solid #00D1B2;
-    box-shadow: 0 4px 15px rgba(0, 209, 178, 0.3);
-    padding: 20px 30px;
-    border-radius: 15px;
-    font-size: 2.5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-
-.header h1 {
-    margin: 20px 0;
-}
-
-.header p {
-    color: #A8B3C5;
-}
-
-.arrow {
-    font-size: 2rem;
-    color: #00D1B2;
-    cursor: pointer;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px 15px;
-    max-width: 1300px;
-    margin: auto;
-}
-
-.card {
-    background: #102A43;
-    padding: 25px;
-    border-radius: 12px;
-    min-height: 330px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0,209,178,0.5);
-}
-
-.card h3 {
-    color: #00D1B2;
-    margin-bottom: 10px;
-}
-
-.card p {
-    text-align: left;
-    color: #A8B3C5;
-    font-size: 0.95rem;
-}
-
-.card a {
-    margin-top: 15px;
-    display: inline-block;
-    background: #007BFF;
-    padding: 12px 25px;
-    border-radius: 6px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.card a:hover {
-    background: #0056B3;
-}
-
-/* Refer & Earn highlight */
-.card.refer {
-    border: 2px solid #00D1B2;
-    box-shadow: 0 0 25px rgba(0,209,178,0.4);
-}
-
-.discord, .warning {
-    margin: 30px auto;
-    max-width: 1200px;
-    padding: 20px;
-    background: #102A43;
-    border-radius: 10px;
-}
-
-.discord a {
-    color: #7289DA;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.footer {
-    padding: 20px;
-    border-top: 1px solid #102A43;
-}
-</style>
+        .discord { padding: 20px; background: #102A43; margin: 20px auto; max-width: 1200px; border-radius: 10px; }
+        .discord p { font-size: 1.1rem; color: #A8B3C5; }
+        .discord a { color: #7289DA; text-decoration: none; font-weight: 700; }
+        .discord a:hover { text-decoration: underline; }
+        .footer { padding: 20px; background: #071524; border-top: 1px solid #102A43; }
+        .footer a { color: #00D1B2; margin: 0 15px; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        .warning { padding: 20px; font-size: 1rem; color: #FFFFFF; background-color: #071524; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); }
+        .modal-content {
+            background-color: #102A43; margin: 5% auto; padding: 20px; border-radius: 10px;
+            width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto;
+        }
+        .close { color: #FFFFFF; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close:hover { color: #00D1B2; }
+        .timer { font-size: 1.2rem; color: #00D1B2; margin: 15px 0; }
+        .leaderboard-warning { font-size: 1rem; color: #A8B3C5; margin-bottom: 15px; font-style: italic; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #00D1B2; }
+        th { background-color: #007BFF; color: #FFFFFF; }
+        tr:hover { background-color: #071524; }
+        td:nth-child(4) { color: #00D1B2; }
+        #options { display: flex; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
+        #options button {
+            background: #007BFF; color: #FFFFFF; padding: 10px 20px; border: none;
+            border-radius: 5px; margin: 5px; cursor: pointer;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        #options button:hover { background: #0056B3; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
+        #options button.active { background: #0056B3; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
+    </style>
 </head>
-
 <body>
-
-<div class="header">
-    <div class="premium-box">WELCOME TO ONEX100 COMMUNITY</div>
-    <h1>THE BEST EXCLUSIVE REWARDS & BONUSES</h1>
-    <p>Exclusive Offers designed to maximize your gaming experience</p>
-    <div class="arrow" onclick="document.querySelector('.cards').scrollIntoView({behavior:'smooth'})">↓</div>
-</div>
-
-<div class="cards">
-
-    <!-- FREE BONUS -->
-    <div class="card">
-        <h3>$35 FREE BONUS</h3>
-        <p>✓ Sign up under code <b>ONEX100</b></p>
-        <p>✓ New users only</p>
-        <p>✓ Deposit $35 & wager $35</p>
-        <p>✓ Contact us on Discord</p>
-        <p>✓ Receive $35 for free</p>
-        <a href="https://onex100.openinapp.link/ONEX100" target="_blank">Claim Bonus</a>
+    <div class="header">
+        <div class="premium-box">WELCOME TO ONEX100 COMMUNITY</div>
+        <h1>THE BEST EXCLUSIVE REWARDS & BONUSES</h1>
+        <p>Exclusive Offers: Choose from our premium bonus packages designed to maximize your gaming experience.</p>
+        <div class="arrow" onclick="scrollToCards()">↓</div>
     </div>
 
-    <!-- WEEKLY -->
-    <div class="card">
-        <h3>$300</h3>
-        <h3 style="font-size:1.4rem">WEEKLY LEADERBOARD</h3>
-        <p>✓ Sign up under code ONEX100</p>
-        <p>✓ Wager on Stake.com</p>
-        <p>✓ Check leaderboard ranking</p>
-        <a href="#">View Leaderboard</a>
+    <div class="cards">
+        <div class="card">
+            <h3 style="font-size: 2rem; font-weight: 900;">$35 FREE BONUS</h3>
+            <p>✓ Sign up under code ONEX100</p>
+            <p>✓ New users Only</p>
+            <p>✓ Deposit $35 wager $35</p>
+            <p>✓ Contact us on Discord</p>
+            <p>✓ Receive $35 for free</p>
+            <a href="https://ONEX100.openinapp.link/ONEX100" target="_blank">Claim Bonus</a>
+        </div>
+        <div class="card">
+            <h3 style="font-size: 2rem; font-weight: 900;">$500</h3>
+            <h3 style="font-size: 1.5rem; font-weight: 700; margin-top: 5px;">WEEKLY LEADERBOARD</h3>
+            <p>✓ Sign up under code ONEX100</p>
+            <p>✓ Wager on Stake.com</p>
+            <p>✓ Check the leaderboard ranking!</p>
+            <a href="javascript:void(0)" onclick="openModal('weekly')">View Leaderboard</a>
+        </div>
+        <div class="card popular">
+            <h3 style="font-size: 2rem; font-weight: 900;">$3000</h3>
+            <h3 style="font-size: 1.5rem; font-weight: 700; margin-top: 5px;">MONTHLY LEADERBOARD</h3>
+            <p>✓ Sign up under code ONEX100</p>
+            <p>✓ Wager on Stake.com</p>
+            <p>✓ Check the leaderboard ranking!</p>
+            <a href="javascript:void(0)" onclick="openModal('monthly')">View Leaderboard</a>
+
+        </div>
+        <div class="card">
+            <h3 style="font-size: 2rem; font-weight: 900;">REFER & EARN</h3>
+            <h3 style="font-size: 1.5rem; font-weight: 700; margin-top: 5px;">$200 PER REFERRAL</h3>
+            <p>✓ Refer your friend</p>
+            <p>✓ Get $200 bonus</p>
+            <p>✓ Your friend gets $35 bonus</p>
+            <p>✓ Send proof on Discord</p>
+            <a href="javascript:void(0)" onclick="openReferTerms()">View Terms</a>
+        </div>
     </div>
 
-    <!-- MONTHLY -->
-    <div class="card">
-        <h3>$2000</h3>
-        <h3 style="font-size:1.4rem">MONTHLY LEADERBOARD</h3>
-        <p>✓ Sign up under code ONEX100</p>
-        <p>✓ Wager on Stake.com</p>
-        <p>✓ Check leaderboard ranking</p>
-        <a href="#">View Leaderboard</a>
+    <div class="discord">
+        <p>For support or to claim your bonus, join our <a href="https://discord.gg/onex100" target="_blank">Discord community</a>.</p>
     </div>
 
-    <!-- REFER & EARN -->
-    <div class="card refer">
-        <h3>REFER & EARN</h3>
-        <p>✓ Share your referral link</p>
-        <p>✓ Friend signs up & wagers</p>
-        <p>✓ Referral Code / Link:</p>
-        <p style="color:#00D1B2; word-break:break-all;">
-            https://onex100.openinapp.link/ONEX100
-        </p>
-        <p>✓ Claim reward via Discord</p>
-        <p>✓ Proof must be sent in a Ticket</p>
-        <a href="https://discord.gg/onex100" target="_blank">Claim Reward</a>
+    <div class="footer">
+        <a href="#">Terms & Conditions</a>  
+        <a href="https://discord.gg/onex100" target="_blank">Contact</a>  
+        <a href="https://discord.gg/onex100" target="_blank">Discord</a>
+        <p>&copy; 2025 ONEX100. All rights reserved.</p>
     </div>
 
-</div>
+    <div class="warning">
+        Warning: Gambling involves risk. Please play responsibly. 18+ only. Seek help if needed.
+    </div>
 
-<div class="discord">
-    <p>Need help or want to claim rewards?  
-    Join our <a href="https://discord.gg/onex100" target="_blank">Discord Community</a></p>
-</div>
+    <!-- Leaderboard Modal -->
+    <div id="leaderboardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="options"></div>
+            <div class="timer" id="timer"></div>
+            <p class="leaderboard-warning" id="leaderboardWarning"></p>
+            <p class="leaderboard-warning" id="lastUpdated"></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Stake Username</th>
+                        <th>Wager Amount</th>
+                        <th>Prize</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardTable"></tbody>
+            </table>
+        </div>
+    </div>
 
-<div class="warning">
-    ⚠️ Gambling involves risk. Play responsibly. 18+ only.
-</div>
+  <script>
+    // === Leaderboard Data ===
+let currentWeeklyData = [
+  { rank: 1,  username: 'Anura****',  wager: '$6,220.33', prize: '$250' },
+  { rank: 2,  username: 'Sahab****',  wager: '$6,006.58', prize: '$120' },
+  { rank: 3,  username: 'Venom****',  wager: '$1,365.00', prize: '$70' },
+  { rank: 4,  username: 'Paulx****',  wager: '$872.54',   prize: '$35' },
+  { rank: 5,  username: 'Heena****',  wager: '$847.47',   prize: '$25' },
 
-<div class="footer">
-    <p>© 2026 ONEX100. All rights reserved.</p>
-</div>
+  { rank: 6,  username: 'Neste****',  wager: '$439.91',   prize: '$0' },
+  { rank: 7,  username: 'Nothi****',  wager: '$197.66',   prize: '$0' },
+  { rank: 8,  username: 'Ashiq****',  wager: '$188.48',   prize: '$0' },
+  { rank: 9,  username: 'NBSTT****',  wager: '$181.63',   prize: '$0' },
+  { rank:10,  username: 'Brije****',  wager: '$178.69',   prize: '$0' },
 
-</body>
-</html>
+  { rank:11,  username: 'Rohan****',  wager: '$130.13',   prize: '$0' },
+  { rank:12,  username: 'Riyaz****',  wager: '$120.74',   prize: '$0' },
+  { rank:13,  username: 'Sendt****',  wager: '$100.41',   prize: '$0' },
+  { rank:14,  username: '555bh****',  wager: '$84.86',    prize: '$0' },
+  { rank:15,  username: 'Jyoti****',  wager: '$71.05',    prize: '$0' },
+
+  { rank:16,  username: 'Dushy****',  wager: '$64.96',    prize: '$0' },
+  { rank:17,  username: 'harsh****',  wager: '$59.94',    prize: '$0' },
+  { rank:18,  username: 'Ris56****',  wager: '$49.14',    prize: '$0' },
+  { rank:19,  username: 'Anyth****',  wager: '$42.70',    prize: '$0' },
+  { rank:20,  username: 'Monix****',  wager: '$41.13',    prize: '$0' },
+
+  { rank:21,  username: 'gowth****',  wager: '$37.82',    prize: '$0' },
+  { rank:22,  username: 'Abmam****',  wager: '$34.59',    prize: '$0' },
+  { rank:23,  username: 'Shado****',  wager: '$30.74',    prize: '$0' },
+  { rank:24,  username: 'Samee****',  wager: '$30.10',    prize: '$0' },
+  { rank:25,  username: 'Antar****',  wager: '$29.22',    prize: '$0' },
+
+  { rank:26,  username: 'Pawan****',  wager: '$25.34',    prize: '$0' },
+  { rank:27,  username: 'xskul****',  wager: '$24.27',    prize: '$0' },
+  { rank:28,  username: 'subas****',  wager: '$22.72',    prize: '$0' },
+  { rank:29,  username: 'Bbcpa****',  wager: '$20.60',    prize: '$0' },
+  { rank:30,  username: 'bhaim****',  wager: '$20.59',    prize: '$0' }
+];
+
+
+
+
+
+let lastWeeklyData = [
+  { rank: 1,  username: 'Jiya*****',  wager: '$13,799.46', prize: '$150' },
+  { rank: 2,  username: 'Itzr*****',  wager: '$3,247.36',  prize: '$70'  },
+  { rank: 3,  username: 'Sudi*****',  wager: '$2,648.18',  prize: '$40'  },
+  { rank: 4,  username: 'Paul*****',  wager: '$1,983.31',  prize: '$20'  },
+  { rank: 5,  username: 'Ashi*****',  wager: '$1,948.68',  prize: '$15'  },
+
+  { rank: 6,  username: 'Pree*****',  wager: '$1,439.55',  prize: '$0'   },
+  { rank: 7,  username: 'Anur*****',  wager: '$1,145.35',  prize: '$0'   },
+  { rank: 8,  username: 'Rosa*****',  wager: '$1,144.26',  prize: '$0'   },
+  { rank: 9,  username: 'Anuj*****',  wager: '$901.14',    prize: '$0'   },
+  { rank:10,  username: 'Hars*****',  wager: '$819.00',    prize: '$0'   },
+
+  { rank:11,  username: 'Veno*****',  wager: '$672.04',    prize: '$0'   },
+  { rank:12,  username: 'Noth*****',  wager: '$607.41',    prize: '$0'   },
+  { rank:13,  username: 'Apul*****',  wager: '$516.83',    prize: '$0'   },
+  { rank:14,  username: 'Riya*****',  wager: '$515.74',    prize: '$0'   },
+  { rank:15,  username: '555b*****',  wager: '$491.49',    prize: '$0'   },
+
+  { rank:16,  username: 'Ramk*****',  wager: '$490.76',    prize: '$0'   },
+  { rank:17,  username: 'Joym*****',  wager: '$476.22',    prize: '$0'   },
+  { rank:18,  username: 'Brij*****',  wager: '$422.97',    prize: '$0'   },
+  { rank:19,  username: 'suba*****',  wager: '$295.29',    prize: '$0'   },
+  { rank:20,  username: 'Jyot*****',  wager: '$288.46',    prize: '$0'   },
+
+  { rank:21,  username: 'Heen*****',  wager: '$271.74',    prize: '$0'   },
+  { rank:22,  username: 'Bobb*****',  wager: '$138.38',    prize: '$0'   },
+  { rank:23,  username: 'Saha*****',  wager: '$130.76',    prize: '$0'   },
+  { rank:24,  username: 'Hadd*****',  wager: '$128.97',    prize: '$0'   },
+  { rank:25,  username: 'bhai*****',  wager: '$96.84',     prize: '$0'   },
+
+  { rank:26,  username: 'Dush*****',  wager: '$90.60',     prize: '$0'   },
+  { rank:27,  username: 'Bini*****',  wager: '$88.30',     prize: '$0'   },
+  { rank:28,  username: 'Osma*****',  wager: '$84.89',     prize: '$0'   },
+  { rank:29,  username: 'xsku*****',  wager: '$81.50',     prize: '$0'   },
+  { rank:30,  username: 'Pawa*****',  wager: '$79.81',     prize: '$0'   }
+];
+
+
+
+
+
+
+
+let currentMonthlyData = [
+  { rank: 1,  username: 'Jiya****',  wager: '$20,871.77', prize: '$1200' },
+  { rank: 2,  username: 'Anur****',  wager: '$8,091.71',  prize: '$600' },
+  { rank: 3,  username: 'Sudi****',  wager: '$5,894.62',  prize: '$450' },
+  { rank: 4,  username: 'Paul****',  wager: '$3,747.98',  prize: '$300' },
+  { rank: 5,  username: 'Itzr****',  wager: '$3,641.05',  prize: '$180' },
+
+  { rank: 6,  username: 'Saha****',  wager: '$3,272.87',  prize: '$120' },
+  { rank: 7,  username: 'Ashi****',  wager: '$2,254.76',  prize: '$90' },
+  { rank: 8,  username: 'Pree****',  wager: '$1,511.07',  prize: '$60' },
+  { rank: 9,  username: 'Heen****',  wager: '$1,218.03',  prize: '$0' },
+  { rank:10,  username: 'Ranj****',  wager: '$1,181.42',  prize: '$0' },
+
+  { rank:11,  username: 'Rosa****',  wager: '$1,165.51',  prize: '$0' },
+  { rank:12,  username: 'Veno****',  wager: '$1,129.64',  prize: '$0' },
+  { rank:13,  username: 'sruj****',  wager: '$1,042.60',  prize: '$0' },
+  { rank:14,  username: 'hars****',  wager: '$967.00',    prize: '$0' },
+  { rank:15,  username: 'Anuj****',  wager: '$902.33',    prize: '$0' },
+
+  { rank:16,  username: '555b****',  wager: '$684.63',    prize: '$0' },
+  { rank:17,  username: 'Noth****',  wager: '$674.06',    prize: '$0' },
+  { rank:18,  username: 'Jyot****',  wager: '$642.06',    prize: '$0' },
+  { rank:19,  username: 'Riya****',  wager: '$635.71',    prize: '$0' },
+  { rank:20,  username: 'Brij****',  wager: '$606.28',    prize: '$0' },
+
+  { rank:21,  username: 'Apul****',  wager: '$531.67',    prize: '$0' },
+  { rank:22,  username: 'Ramk****',  wager: '$505.33',    prize: '$0' },
+  { rank:23,  username: 'Joym****',  wager: '$487.32',    prize: '$0' },
+  { rank:24,  username: 'Anyt****',  wager: '$412.37',    prize: '$0' },
+  { rank:25,  username: 'suba****',  wager: '$318.01',    prize: '$0' },
+
+  { rank:26,  username: 'Nest****',  wager: '$194.75',    prize: '$0' },
+  { rank:27,  username: 'Bobb****',  wager: '$168.80',    prize: '$0' },
+  { rank:28,  username: 'Dush****',  wager: '$154.21',    prize: '$0' },
+  { rank:29,  username: 'Moni****',  wager: '$132.98',    prize: '$0' },
+  { rank:30,  username: 'Cran****',  wager: '$129.50',    prize: '$0' }
+];
+
+
+
+
+
+
+let lastMonthlyData = [
+  { rank: 1,  username: 'Jiya*****', wager: '$75,401.41', prize: '$800' },
+  { rank: 2,  username: 'Ashi*****', wager: '$30,858.04', prize: '$400' },
+  { rank: 3,  username: 'Veno*****', wager: '$21,625.94', prize: '$300' },
+  { rank: 4,  username: 'Anur*****', wager: '$17,181.62', prize: '$150' },
+  { rank: 5,  username: 'Itzr*****', wager: '$11,591.04', prize: '$100' },
+
+  { rank: 6,  username: 'bhai*****', wager: '$10,565.75', prize: '$80'  },
+  { rank: 7,  username: 'Joym*****', wager: '$9,154.92',  prize: '$60'  },
+  { rank: 8,  username: 'Hars*****', wager: '$8,338.82',  prize: '$40'  },
+  { rank: 9,  username: 'Moni*****', wager: '$5,249.76',  prize: '$30'  },
+  { rank:10,  username: 'Bini*****', wager: '$5,022.92',  prize: '$20'  },
+
+  { rank:11,  username: 'Limi*****', wager: '$4,853.73',  prize: '$0'   },
+  { rank:12,  username: 'Same*****', wager: '$4,165.27',  prize: '$0'   },
+  { rank:13,  username: 'Riya*****', wager: '$3,234.78',  prize: '$0'   },
+  { rank:14,  username: 'Pasw*****', wager: '$3,039.70',  prize: '$0'   },
+  { rank:15,  username: 'Pree*****', wager: '$2,990.91',  prize: '$0'   },
+
+  { rank:16,  username: 'lil4*****', wager: '$2,872.64',  prize: '$0'   },
+  { rank:17,  username: 'Kshs*****', wager: '$2,655.77',  prize: '$0'   },
+  { rank:18,  username: 'Abma*****', wager: '$2,618.86',  prize: '$0'   },
+  { rank:19,  username: 'NBST*****', wager: '$2,496.16',  prize: '$0'   },
+  { rank:20,  username: 'Noth*****', wager: '$2,367.88',  prize: '$0'   },
+
+  { rank:21,  username: 'Paul*****', wager: '$2,349.57',  prize: '$0'   },
+  { rank:22,  username: 'Send*****', wager: '$2,255.70',  prize: '$0'   },
+  { rank:23,  username: 'Parv*****', wager: '$2,164.28',  prize: '$0'   },
+  { rank:24,  username: 'Howm*****', wager: '$1,982.24',  prize: '$0'   },
+  { rank:25,  username: 'Anuj*****', wager: '$1,863.84',  prize: '$0'   },
+
+  { rank:26,  username: 'Ravi*****', wager: '$1,856.27',  prize: '$0'   },
+  { rank:27,  username: 'xsku*****', wager: '$1,676.87',  prize: '$0'   },
+  { rank:28,  username: '555b*****', wager: '$1,587.53',  prize: '$0'   },
+  { rank:29,  username: 'Jyot*****', wager: '$1,565.15',  prize: '$0'   },
+  { rank:30,  username: 'Rosa*****', wager: '$1,412.21',  prize: '$0'   }
+];
+
+    // === Manual End Times (Yahan aap date/time change kar sakte hain) ===
+    const currentWeeklyEndTime = new Date("2026-02-15T23:59:59"); // Current week ends
+    const lastWeeklyEndTime = new Date("2025-10-26T23:59:59");    // Last week ended
+    const currentMonthlyEndTime = new Date("2026-02-28T23:59:59"); // Current month ends
+    const lastMonthlyEndTime = new Date("2025-10-02T23:59:59");   // Last month ended
+
+    const leaderboards = {
+    currentWeekly: { 
+        title: 'Current Week Leaderboard', 
+        data: currentWeeklyData, 
+        endTime: currentWeeklyEndTime, 
+        raceType: 'Weekly', 
+        warning: 'This leaderboard updates once every 24 hours. Prizes are distributed on Mondays. ⚠️ Minimum wager required to claim prize: $30,000.' 
+    },
+    lastWeekly: { 
+        title: 'Last Week Leaderboard', 
+        data: lastWeeklyData, 
+        endTime: lastWeeklyEndTime, 
+        raceType: 'Weekly', 
+        warning: 'This leaderboard competition has ended. ⚠️ Minimum wager required was $30,000 to claim prizes.' 
+    },
+    currentMonthly: { 
+        title: 'Current Monthly Leaderboard', 
+        data: currentMonthlyData, 
+        endTime: currentMonthlyEndTime, 
+        raceType: 'Monthly', 
+        warning: 'This leaderboard updates once every 24 hours. Prizes are distributed within 48 hours after the month ends. ⚠️ Minimum wager required to claim prize: $125,000.' 
+    },
+    lastMonthly: { 
+        title: 'Last Monthly Leaderboard', 
+        data: lastMonthlyData, 
+        endTime: lastMonthlyEndTime, 
+        raceType: 'Monthly', 
+        warning: 'This leaderboard competition has ended. ⚠️ Minimum wager required was $125,000 to claim prizes.' 
+    }
+};
+
+
+
+    let intervalId = null;
+
+    function updateTimer(endTime, raceType) {
+        const timerEl = document.getElementById('timer');
+        let now = new Date().getTime();
+        let diff = endTime.getTime() - now;
+
+        if (diff <= 0) {
+            timerEl.innerHTML = `${raceType} Leaderboard Ended!`;
+            clearInterval(intervalId);
+            return;
+        }
+
+        let d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        timerEl.innerHTML = `Time Left: ${d}d ${h}h ${m}m ${s}s`;
+    }
+
+    function loadLeaderboard(type) {
+        const config = leaderboards[type];
+        document.getElementById('modalTitle').textContent = config.title;
+        document.getElementById('leaderboardWarning').textContent = config.warning;
+        document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleString();
+
+        const table = document.getElementById('leaderboardTable');
+        const thead = table.querySelector('thead');
+        
+        // Default headers for wager leaderboard
+        thead.innerHTML = `
+            <tr>
+                <th>Rank</th>
+                <th>Stake Username</th>
+                <th>Wager Amount</th>
+                <th>Prize</th>
+            </tr>
+        `;
+        table.querySelector('tbody').innerHTML = config.data.map(row =>
+            `<tr><td>${row.rank}</td><td>${row.username}</td><td>${row.wager}</td><td>${row.prize}</td></tr>`
+        ).join('');
+
+        document.querySelectorAll('#options button').forEach(b => b.classList.remove('active'));
+        const btn = document.getElementById(type + 'Btn');
+        if (btn) btn.classList.add('active');
+
+        clearInterval(intervalId);
+        updateTimer(config.endTime, config.raceType);
+        intervalId = setInterval(() => updateTimer(config.endTime, config.raceType), 1000);
+    }
+
+    function openModal(type) {
+        const modal = document.getElementById('leaderboardModal');
+        const options = document.getElementById('options');
+        modal.style.display = 'block';
+
+        if (type === 'weekly') {
+            options.innerHTML = `
+                <button id="currentWeeklyBtn" onclick="loadLeaderboard('currentWeekly')">Current Week</button>
+                <button id="lastWeeklyBtn" onclick="loadLeaderboard('lastWeekly')">Last Week</button>`;
+            loadLeaderboard('currentWeekly');
+        } else if (type === 'monthly') {
+            options.innerHTML = `
+                <button id="currentMonthlyBtn" onclick="loadLeaderboard('currentMonthly')">Current Month</button>
+                <button id="lastMonthlyBtn" onclick="loadLeaderboard('lastMonthly')">Last Month</button>`;
+            loadLeaderboard('currentMonthly');
+        }
+    }
+
+    function openReferTerms() {
+        const modal = document.getElementById('leaderboardModal');
+        modal.style.display = 'block';
+        
+        document.getElementById('modalTitle').textContent = 'Refer & Earn Terms';
+        document.getElementById('options').innerHTML = '';
+        document.getElementById('timer').innerHTML = '';
+        document.getElementById('lastUpdated').innerHTML = '';
+        
+        const leaderboardSection = modal.querySelector('.modal-content').querySelector('table').parentElement;
+        leaderboardSection.innerHTML = `
+            <div style="padding: 20px; text-align: left; background: #102A43; border-radius: 10px; line-height: 2;">
+                <h3 style="color: #00D1B2; font-size: 1.3rem; margin-bottom: 15px;">How to Earn $200 per Referral:</h3>
+                
+                <p style="margin-bottom: 15px;"><strong>📌 Step 1:</strong> Refer your friend to ONEX100</p>
+                
+                <p style="margin-bottom: 15px;"><strong>💰 Step 2:</strong> When your friend deposits $35, they receive a bonus</p>
+                
+                <p style="margin-bottom: 15px;"><strong>✅ Step 3:</strong> You get $200 as a referral reward</p>
+                
+                <p style="margin-bottom: 20px; padding: 15px; background: #071524; border-left: 4px solid #00D1B2;"><strong>⚠️ Important:</strong> Send proof of the referral (screenshot showing the deposit or deposit confirmation) on Discord to claim your $200 reward.</p>
+                
+                <p style="margin-bottom: 15px;"><strong>📸 Proof Requirements:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Screenshot of friend's deposit confirmation</li>
+                    <li>Friend's Stake username</li>
+                    <li>Referral code used (ONEX100)</li>
+                </ul>
+                
+                <p style="padding: 15px; background: #071524; border-radius: 5px;"><strong>🎯 Contact us on Discord:</strong> <a href="https://discord.gg/onex100" target="_blank" style="color: #7289DA; text-decoration: none;">discord.gg/onex100</a> to submit your proof and claim your reward!</p>
+            </div>
+        `;
+    }
+
+    function closeModal() {
+        clearInterval(intervalId);
+        document.getElementById('leaderboardModal').style.display = 'none';
+    }
+
+    function scrollToCards() {
+        document.querySelector('.cards').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onclick = e => {
+        if (e.target == document.getElementById('leaderboardModal')) closeModal();
+    };
+</script>
